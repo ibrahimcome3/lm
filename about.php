@@ -1,15 +1,5 @@
 <!DOCTYPE HTML>
-<?php
-session_start();
-require_once  'C:\wamp64\www\lm\class\Conn.php';
-require_once  'C:\wamp64\www\lm\class\ProductItem.php';
-require_once  'C:\wamp64\www\lm\class\Category.php';
-require_once  'C:\wamp64\www\lm\class\InventoryItem.php';
-require_once  'C:\wamp64\www\lm\conn.php';
- include 'breadcrumps.php';
- ?>
-
-<!DOCTYPE html>
+<?php require_once "includes.php"; ?>
 <html lang="en">
 
 

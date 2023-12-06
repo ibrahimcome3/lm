@@ -1,37 +1,5 @@
 <?php
-    session_start();
-    //if((!isset($_GET['arr'])))
-   // header("location: http://localhost/lm/category.php?arr=2");
-    require_once  'C:\wamp64\www\lm\class\Conn.php';
-     require_once  'C:\wamp64\www\lm\conn.php';
-    require_once  'C:\wamp64\www\lm\class\InventoryItem.php';
-    require_once  'C:\wamp64\www\lm\class\Category.php';
-    require_once  'C:\wamp64\www\lm\class\ProductItem.php';
-    require_once  'C:\wamp64\www\lm\class\Review.php';
-    require_once  'C:\wamp64\www\lm\class\Promotion.php';
-    include 'breadcrumps.php';
-    $product_obj = new ProductItem();
-    $promotion = new Promotion();
-    $var= array();
-    $var1= array();
-    $options = [
-    \PDO::ATTR_ERRMODE            => \PDO::ERRMODE_EXCEPTION,
-    \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
-    \PDO::ATTR_EMULATE_PREPARES   => false,
-    ];
-      $host = 'localhost';
-      $db   = 'lm';
-      $user = 'root';
-      $pass = '';
-      $port = "3306";
-      $charset = 'utf8mb4';
-      $dsn = "mysql:host=$host;dbname=$db;charset=$charset;port=$port";
-    try {
-         $pdo = new \PDO($dsn, $user, $pass, $options);
-         $db = $pdo;
-    } catch (\PDOException $e) {
-         throw new \PDOException($e->getMessage(), (int)$e->getCode());
-    }
+  require_once "includes.php";
 /************************************************************************************************/
 if (isset($_GET['pageno'])) {
     $pageno = $_GET['pageno'];
@@ -302,7 +270,7 @@ $lastpage = ceil($total_pages/$limit);
                                     <label>Filters:</label>
                                     <a href="#" class="sidebar-filter-clear">Clean All</a>
                                 </div><!-- End .widget widget-clean -->
-                                 <a href="http://localhost/lm/category.php?arr=0&arrysize=&arrybrand=#">Drinks (<?= $inventory_items->get_all_drinks_count() ?>)</a>
+                                 
                                 <div class="widget widget-collapsible">
                                     <h3 class="widget-title">
 

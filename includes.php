@@ -8,10 +8,12 @@ require_once  'C:\wamp64\www\lm\class\Conn.php';
     require_once  'C:\wamp64\www\lm\class\ProductItem.php';
     require_once  'C:\wamp64\www\lm\class\Variation.php';
     require_once  "C:\wamp64\www\lm\class\Promotion.php";
+    require_once  "C:\wamp64\www\lm\class\WishList.php";
     include 'breadcrumps.php';
     $product_obj = new ProductItem();
     $promotion = new Promotion();
     $Orvi = new Review();
+    $wishlist = new WishList();
 
 
   function getImage($id_of_what_get_image){
@@ -22,7 +24,7 @@ require_once  'C:\wamp64\www\lm\class\Conn.php';
   if(mysqli_num_rows($result) > 0)
   return $row['image_path'];
   else return "e.jpg";
-}
+  }
     $var= array();
     $var1= array();
     $options = [
@@ -43,4 +45,7 @@ require_once  'C:\wamp64\www\lm\class\Conn.php';
     } catch (\PDOException $e) {
          throw new \PDOException($e->getMessage(), (int)$e->getCode());
     }
+
+    $var= array();
+    $var1= array();
    ?>

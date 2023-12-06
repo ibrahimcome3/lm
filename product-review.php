@@ -1,4 +1,4 @@
-<?php session_start();  include 'breadcrumps.php'; ?>
+<?php require_once "includes.php";   ?>
 <!DOCTYPE html>
 <html lang="en">
 

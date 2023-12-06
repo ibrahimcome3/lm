@@ -1,31 +1,8 @@
-<?php
-
-
-?>
       <header class="header">
             <div class="header-top">
                 <div class="container">
                     <div class="header-left" style="margin: 20px;">
-                      <!-- 1 <div class="header-dropdown">
-                            <a href="#">Usd</a>
-                            <div class="header-menu">
-                                <ul>
-                                    <li><a href="#">Eur</a></li>
-                                    <li><a href="#">Usd</a></li>
-                                </ul>
-                            </div><!-- End .header-menu -->
-                       <!-- 2 </div><!-- End .header-dropdown -->
 
-                     <!-- 2    <div class="header-dropdown">
-                            <a href="#">Eng</a>
-                            <div class="header-menu">
-                                <ul>
-                                    <li><a href="#">English</a></li>
-                                    <li><a href="#">French</a></li>
-                                    <li><a href="#">Spanish</a></li>
-                                </ul>
-                            </div><!-- End .header-menu -->
-                     <!-- 2    </div><!-- End .header-dropdown -->
                     </div><!-- End .header-left -->
 
                     <div class="header-right">
@@ -33,14 +10,19 @@
                             <li>
                                 <a href="#">Links</a>
                                 <ul>
+                                    <?php   // var_dump($_SESSION) ?>
                                     <li><a href="tel:#"><i class="icon-phone"></i>Call: +2348051067944</a></li>
-                                    <li><a href="wishlist.php"><i class="icon-heart-o"></i>Wishlist <span>(3)</span></a></li>
+                                    <?php if(isset($_SESSION["uid"])){ ?>
+                                    <li><a href="wishlist.php"><i class="icon-heart-o"></i>Wishlist <span>(<?= $wished_list_count; ?>)</span></a></li>
+                                   <?php }else{ ?>
+                                    <li><a href="#"><i class="icon-heart-o"></i>Wishlist <span>(<?= $wished_list_count; ?>)</span></a></li>
+                                   <?php } ?>
                                     <li><a href="about.php">About Us</a></li>
                                     <li><a href="contact.php">Contact Us</a></li>
-                                    <?php if(!isset($_SESSION["uid"])){ ?>
-                                    <li><a href="#signin-modal" data-toggle="modal"><i class="icon-user"></i>Login</a></li>
+                                    <?php if(isset($_SESSION["uid"])){ ?>
+                                    <li><a href="logout.php" data-toggle="modal"><i class="icon-user"></i>Log Out</a></li>
                                    <?php }else{ ?>
-                                   <li><a href="logout.php" data-toggle="modal"><i class="icon-user"></i>Log Out</a></li>
+                                    <li><a href="#signin-modal" data-toggle="modal"><i class="icon-user"></i>Login</a></li>
                                     <?php } ?>
                              </ul>
                             </li>
@@ -115,20 +97,20 @@
                                 <?php
                                 $arr = array();
                                 foreach($_SESSION['cart'] as $key => $value){
-                                 $stmt = $pdo->prepare('SELECT * FROM inventoryitem WHERE InventoryItemID = ?');
-                                 $stmt->execute([$key]);
-                                 $row_ = $stmt->fetch(PDO::FETCH_ASSOC);
-                                 array_push($arr, $row_['InventoryItemID']);
+                                 $stmt__ = $pdo->prepare('SELECT * FROM inventoryitem WHERE InventoryItemID = ?');
+                                 $stmt__->execute([$key]);
+                                 $row__ = $stmt__->fetch(PDO::FETCH_ASSOC);
+                                 array_push($arr, $row__['InventoryItemID']);
                                  }
 
                                  $tags = implode(',', $arr);
-                                 $sql = "SELECT * FROM inventoryitem WHERE InventoryItemID in ($tags)";
-                                 $stmt = $pdo->query($sql);
+                                 $sql__ = "SELECT * FROM inventoryitem WHERE InventoryItemID in ($tags)";
+                                 $stmt__ = $pdo->query($sql__);
 
                                  $sum = 0;
-                                 while($row_ = $stmt->fetch()){
-                                       if($promotion->check_if_item_is_in_inventory_promotion($row_['InventoryItemID'])){
-                                        $row_['cost'] = $promotion->get_promoPrice_price($row_['InventoryItemID']);
+                                 while($row__ = $stmt__->fetch()){
+                                       if($promotion->check_if_item_is_in_inventory_promotion($row__['InventoryItemID'])){
+                                        $row__['cost'] = $promotion->get_promoPrice_price($row__['InventoryItemID']);
                                        }
 
                                  ?>
@@ -136,24 +118,24 @@
 
                                         <div class="product-cart-details">
                                             <h4 class="product-title">
-                                                <a href="product.html"><?= $row_['small_description'] ?></a>
+                                                <a href="product.html"><?= $row__['small_description'] ?></a>
                                             </h4>
 
                                             <span class="cart-product-info">
-                                                <span class="cart-product-qty"><?= $_SESSION['cart'][$row_['InventoryItemID']] ?></span>
-                                                &nbsp;x N&nbsp;<?= $row_['cost'] ?>
+                                                <span class="cart-product-qty"><?= $_SESSION['cart'][$row__['InventoryItemID']] ?></span>
+                                                &nbsp;x N&nbsp;<?= $row__['cost'] ?>
                                             </span>
                                         </div><!-- End .product-cart-details -->
 
                                         <figure class="product-image-container">
-                                             <a href="product-detail?itemid=<?=$row_['InventoryItemID'] ?>" class="product-image">
-                                                <img src="<?= getImage($row_['InventoryItemID']); ?>" alt="product">
+                                             <a href="product-detail?itemid=<?=$row__['InventoryItemID'] ?>" class="product-image">
+                                                <img src="<?= getImage($row__['InventoryItemID']); ?>" alt="product">
                                             </a>
                                         </figure>
                                         <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
                                     </div><!-- End .product -->
                                 <?php
-                                $sum += $_SESSION['cart'][$row_['InventoryItemID']] *  $row_['cost'];
+                                $sum += $_SESSION['cart'][$row__['InventoryItemID']] *  $row__['cost'];
 
                                 } ?>
 
