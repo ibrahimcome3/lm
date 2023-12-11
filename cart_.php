@@ -1,33 +1,17 @@
 <!DOCTYPE html>
+<?php require_once "includes.php";   ?>
 <?php
-session_start();
+
 $_SESSION['next_url'] = 'shipping-address-selection.php';//$_SERVER['REQUEST_URI'];
 
 unset($_SESSION['cart_final']);
 //var_dump($_SESSION['cart_final']);
-include "conn.php";
-require_once  'C:\wamp64\www\lm\class\Conn.php';
-    require_once  'C:\wamp64\www\lm\class\InventoryItem.php';
-    require_once  'C:\wamp64\www\lm\class\Category.php';
-    require_once  'C:\wamp64\www\lm\class\Review.php';
-    require_once  'C:\wamp64\www\lm\class\ProductItem.php';
-    require_once  'C:\wamp64\www\lm\class\Variation.php';
-    require_once  "C:\wamp64\www\lm\class\Promotion.php";
-    include 'breadcrumps.php';
+
 
     $promotion = new Promotion();
     $cat = new Category();
 
 
-
-
-function getImage($id_of_what_get_image){
-    include "conn.php";
-    $sql = "SELECT * FROM `inventoryitem` WHERE `InventoryItemID` =".$id_of_what_get_image;
-    $result = $mysqli->query($sql);
-    $row = mysqli_fetch_array($result);
-    return "data_img/".$row['image'];
-}
 
 
 // Check the session variable for products in cart
@@ -89,7 +73,7 @@ if ($products_in_cart) {
 <body>
     <div class="page-wrapper">
         <br>
-        <?php  include "header1.php"; ?>
+        <?php include "header-for-other-pages.php"; ?>
         <main class="main">
             <nav aria-label="breadcrumb" class="breadcrumb-nav">
                 <div class="container">
@@ -163,7 +147,7 @@ if ($products_in_cart) {
                                                         }
                                                     }
                                                 } else {
-                                                     echo "no";
+
                                                     // There are no products in cart, this will add the first product to cart
                                                     if($promotion->check_if_item_is_in_inventory_promotion($product_id_cost)){
                                                     $_SESSION['cart_final'] = array($product_id_cost =>  $promotion->get_promoPrice_price($row['InventoryItemID']) * $products_in_cart[$row['InventoryItemID']]);

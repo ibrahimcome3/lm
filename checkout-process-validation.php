@@ -1,11 +1,13 @@
 <?php
-session_start();
-//var_dump($_SESSION);
-   if(isset($_SESSION['uid'])){
+require_once "includes.php";
+
+   if(isset($_SESSION['uid']) and isset($_GET['shipping'])){
           header("Location: shipping-address-selection.php");
           exit();
+   }elseif(isset($_SESSION['uid']) and !isset($_GET['shipping'])){
+          header("Location: shipping-cost.php");
+          exit();
    }
-
 
 ?>
 
@@ -52,9 +54,7 @@ session_start();
             <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
                 <div class="container">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                        <li class="breadcrumb-item"><a href="#">Pages</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Login</li>
+                          <?php  echo breadcrumbs();  ?>
                     </ol>
                 </div><!-- End .container -->
             </nav><!-- End .breadcrumb-nav -->

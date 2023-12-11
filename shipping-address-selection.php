@@ -1,7 +1,7 @@
 <?php
-session_start();
-include "conn.php";
-include 'breadcrumps.php';
+include "includes.php";
+
+if(isset($_SESSION['cart']) and count($_SESSION['cart']) > 0){
 $er = Array();
         $sql = "SELECT * FROM `shipping_address` WHERE `customer_id` =  '" . $_SESSION['uid'] ."'";
         $result = $mysqli->query($sql);
@@ -15,6 +15,10 @@ $er = Array();
              exit();
         }
 
+}
+}else{
+     echo "<a href='index.php'>Click here to shop. shopping cart empty</a>";
+     exit();
 }
 
 
@@ -70,7 +74,7 @@ $er = Array();
 <body>
     <div class="page-wrapper">
         <br/>
-        <?php include "header1.php" ?>
+<?php include "header-for-other-pages.php"; ?>       
         <main class="main">
             <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
                 <div class="container">

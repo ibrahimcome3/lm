@@ -37,7 +37,8 @@ $result = $mysqli->query($sql);
     <!-- Plugins CSS File -->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <!-- Main CSS File -->
-    <link rel="stylesheet" href="assets/css/style.css">
+   <link rel="stylesheet" href="assets/css/style.css">
+   <link rel="stylesheet" href="assets/css/skins/skin-demo-13.css">
 </head>
 
 <body>
@@ -47,15 +48,10 @@ $result = $mysqli->query($sql);
     ?>
 
         <main class="main">
-        	<div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
-        		<div class="container">
-        			<h1 class="page-title">Wishlist<span>Shop</span></h1>
-        		</div><!-- End .container -->
-        	</div><!-- End .page-header -->
             <nav aria-label="breadcrumb" class="breadcrumb-nav">
                 <div class="container">
                     <ol class="breadcrumb">
-                           <?php  echo breadcrumbs();  ?>        
+                           <?php  echo breadcrumbs();  ?>
                     </ol>
                 </div><!-- End .container -->
             </nav><!-- End .breadcrumb-nav -->

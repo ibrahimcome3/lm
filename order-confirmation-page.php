@@ -52,6 +52,7 @@ if(isset($_SESSION['cart'])){
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/skins/skin-demo-13.css">
     <link rel="stylesheet" href="assets/css/demos/demo-13.css">
+
 </head>
 
 <body>

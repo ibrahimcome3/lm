@@ -30,6 +30,7 @@ include 'breadcrumps.php';
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <!-- Main CSS File -->
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/skins/skin-demo-13.css">
 </head>
 
 <body>

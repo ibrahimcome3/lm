@@ -1,6 +1,5 @@
 <?php
-session_start();
-//var_dump($_SESSION['cart']);
+require_once "includes.php";
 include "conn.php";
 try{
 
@@ -97,7 +96,7 @@ if(!empty($_POST)){
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Customer Shippinh address registration page</title>
+    <title>Customer Shipping address registration page</title>
     <meta name="keywords" content="HTML5 Template">
     <meta name="description" content="Molla - Bootstrap eCommerce Template">
     <meta name="author" content="p-themes">
@@ -131,9 +130,7 @@ if(!empty($_POST)){
             <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
                 <div class="container">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                        <li class="breadcrumb-item"><a href="#">Pages</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Login</li>
+                      <?php  echo breadcrumbs();  ?>
                     </ol>
                 </div><!-- End .container -->
             </nav><!-- End .breadcrumb-nav -->

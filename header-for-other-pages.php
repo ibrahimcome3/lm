@@ -1,10 +1,15 @@
-      <header class="header">
+<?php
+$wished_list_count = 0;
+if(isset($_SESSION['uid']))
+$wished_list_count = $wishlist->get_wished_list_item($_SESSION["uid"]);
+
+?>
+ <header class="header">
             <div class="header-top">
                 <div class="container">
                     <div class="header-left" style="margin: 20px;">
 
                     </div><!-- End .header-left -->
-
                     <div class="header-right">
                         <ul class="top-menu">
                             <li>
@@ -149,7 +154,7 @@
 
                                 <div class="dropdown-cart-action">
                                     <a href="cart_.php" class="btn btn-primary">View Cart</a>
-                                    <a href="checkout.php" class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>
+                                    <a href="final_cart_set_up.php" class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>
                                 </div><!-- End .dropdown-cart-total -->
                             </div><!-- End .dropdown-menu -->
                             <?php } ?>

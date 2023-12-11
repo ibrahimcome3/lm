@@ -5,13 +5,13 @@ if(isset($_SESSION['cart_final'])){
 if($_SESSION['uid']){
    $customer_id = $_SESSION['uid'];
 }else{
-   echo "<a href='index.php'>click here for homepage and shop</a>";
+   echo "<a href='login.php'>click here to login</a><br/>";
    exit();
 
 }
  if(!isset($_POST['ship-address'])){
 
-}
+ }
  $total_item_ordered = count($_SESSION['cart_final']);
  $total_price_of_items = 0;
  foreach($_SESSION['cart_final'] as $key => $value){

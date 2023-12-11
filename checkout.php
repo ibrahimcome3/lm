@@ -1,19 +1,11 @@
+<?php require_once "includes.php";   ?>
 <!DOCTYPE html>
 <?php
-session_start();
  $cart_final = Array();
  $cart_final = $_SESSION['cart_final'];
- var_dump($cart_final);
+ //var_dump($cart_final);
 
-include "conn.php";
 
-function getImage($id_of_what_get_image){
-    include "conn.php";
-    $sql = "SELECT `InventoryItemID`, `quantityOnHand`, `cost`, `reorderQuantity`, `productItemID`, `date_added`, `description`, `size`, `color`, `image`, `category` FROM `inventoryitem` WHERE `InventoryItemID` =".$id_of_what_get_image;
-    $result = $mysqli->query($sql);
-    $row = mysqli_fetch_array($result);
-    return "data_img/".$row['image'];
-}
 
 
 // Check the session variable for products in cart
@@ -48,7 +40,7 @@ if ($products_in_cart) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Molla - Bootstrap eCommerce Template</title>
+    <title>Check Out</title>
     <meta name="keywords" content="HTML5 Template">
     <meta name="description" content="Molla - Bootstrap eCommerce Template">
     <meta name="author" content="p-themes">
@@ -68,12 +60,13 @@ if ($products_in_cart) {
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <!-- Main CSS File -->
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/skins/skin-demo-13.css">
 </head>
 
 <body>
     <div class="page-wrapper">
         <br/>
-        <?php include "header1.php"; ?>
+           <?php include "header-for-other-pages.php"; ?>
         <main class="main">
             <nav aria-label="breadcrumb" class="breadcrumb-nav">
                 <div class="container">
@@ -86,12 +79,7 @@ if ($products_in_cart) {
             <div class="page-content">
             	<div class="checkout">
                     <div class="container">
-            			<div class="checkout-discount">
-            				<form action="#">
-        						<input type="text" class="form-control" required id="checkout-discount-input">
-            					<label for="checkout-discount-input" class="text-truncate">Have a coupon? <span>Click here to enter your code</span></label>
-            				</form>
-            			</div><!-- End .checkout-discount -->
+
             			<form action="checkout-process.php" method="post">
                         	<div class="row">
                         		<div class="col-lg-9">
@@ -255,7 +243,7 @@ if ($products_in_cart) {
         </main><!-- End .main -->
 
                  <footer class="footer">
-               <?php include "footer.php"; ?>
+                 <?php include "footer.php"; ?>
                 </footer><!-- End .footer -->
     </div><!-- End .page-wrapper -->
     <button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
