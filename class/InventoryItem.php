@@ -102,6 +102,18 @@ class InventoryItem  extends Conn
            return(array_unique($string2));
     }
 
+    function check_item_in_existance($id){
+        $pdo = $this->dbc;
+        $stmt = $pdo->query("select * from inventoryitem where InventoryItemID = $id");
+        $row = $stmt->fetch();
+        $row_count = $stmt->rowCount();
+        if($row_count > 0){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
 
 }
 

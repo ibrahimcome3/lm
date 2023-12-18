@@ -14,7 +14,7 @@ require_once  'C:\wamp64\www\lm\class\Conn.php';
     $promotion = new Promotion();
     $Orvi = new Review();
     $wishlist = new WishList();
-
+    $invt = new InventoryItem();
 
   function getImage($id_of_what_get_image){
   include "conn.php";

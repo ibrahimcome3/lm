@@ -2,7 +2,7 @@
 <?php
 require_once "includes.php";
 $wished_list_count = 0;
-
+if(!$invt->check_item_in_existance($_GET['itemid'])) { echo "Item does not exist <a href='index.php'>click here to go home page</a>"; exit();}
 if(isset($_SESSION['uid']))
 $wished_list_count = $wishlist->get_wished_list_item($_SESSION["uid"]);
 
