@@ -28,9 +28,6 @@ $cat = new Category();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>LM - LagosMarket</title>
-    <meta name="keywords" content="HTML5 Template">
-    <meta name="description" content="LM - LagosMarket">
-    <meta name="author" content="p-themes">
     <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="assets/images/icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/images/icons/favicon-32x32.png">
@@ -38,11 +35,7 @@ $cat = new Category();
     <link rel="manifest" href="assets/images/icons/site.html">
     <link rel="mask-icon" href="assets/images/icons/safari-pinned-tab.svg" color="#666666">
     <link rel="shortcut icon" href="assets/images/icons/favicon.ico">
-    <meta name="apple-mobile-web-app-title" content="Molla">
-    <meta name="application-name" content="Molla">
-    <meta name="msapplication-TileColor" content="#cc9966">
-    <meta name="msapplication-config" content="assets/images/icons/browserconfig.xml">
-    <meta name="theme-color" content="#ffffff">
+
     <link rel="stylesheet" href="assets/vendor/line-awesome/line-awesome/line-awesome/css/line-awesome.min.css">
     <!-- Plugins CSS File -->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -362,10 +355,8 @@ $cat = new Category();
                                <?php
                                 $id_of_what_get_image = null;
                                 while($row = mysqli_fetch_array($result)){
+                                  
                                ?>
-
-
-
                                 <div class="product">
                                     <figure class="product-media">
                                     <!--    <span class="product-label label-top">Top</span>    -->
@@ -1987,7 +1978,7 @@ $cat = new Category();
     <script src="assets/js/jquery.magnific-popup.min.js"></script>
     <script src="assets/js/jquery.plugin.min.js"></script>
     <script src="assets/js/jquery.countdown.min.js"></script>
-    <script src="login.js"></script>
+    
     <!-- Main JS File -->
     <script src="assets/js/main.js"></script>
     <script src="assets/js/demos/demo-13.js"></script>

@@ -32,18 +32,19 @@ $("button.for-logging-in").click(function(event){
  });
 
  $("button.for-registration").click(function(event){
-
+    alert("xxxxx"); 
  event.preventDefault();
+ /*
       $("#err").empty();
       var email = $('#register-email').val();
-      var password  = $('#register-password').val();
+      var password_  = $('#register-password').val();
       var err = "";
-      alert(email+' '+password);
+      alert(email+' '+password_);
     $.ajax({
        type: "POST",
        url: 'small-registration.php',
        dataType: "json",
-       data:  { registeremail : email, registerpassword : password },
+       data:  { registeremail : email, registerpassword : password_ },
        success: function(data)
        {
           if (data.existing_email_error === 'This email is already registred') {
@@ -51,5 +52,6 @@ $("button.for-logging-in").click(function(event){
           }
        }
    });
+   */
  });
  });

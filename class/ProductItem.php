@@ -100,6 +100,9 @@ class ProductItem  extends Conn
                array_push($ar, $row['productID']);
           }
          return $ar;
+        }else{
+               array_push($ar, -1);
+               return $ar;
         }
 
 

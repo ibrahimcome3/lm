@@ -305,6 +305,8 @@ if ($products_in_cart) {
 
     <script>
      $(document).ready(function(){
+		      var shiping_  = 1300;
+			  var express_shipping  = 3000;
             $("button.update_cart").click(function(event){
                 $("form.update_cart_form").submit();
                 event.preventDefault() // Submit the form
@@ -335,7 +337,7 @@ if ($products_in_cart) {
                    if ($('#express-shipping').is(':checked')) {
                //var newvalue = parseInt($("#subtotal").val()) + parseInt($("#express-shipping").val());
                //$("td#subtotal").text(newvalue);
-               $("#proceed").attr('href', "checkout.php?express_shipping=3000");
+               $("#proceed").attr('href', "checkout-process-validation.php?express_shipping="+express_shipping);
 
         }
 
@@ -345,7 +347,7 @@ if ($products_in_cart) {
                     if ($('#free-shipping').is(':checked')) {
                //var newvalue = parseInt($("#subtotal").val()) + parseInt($("#free-shipping").val());
                //$("td#subtotal").text(newvalue);
-               $("#proceed").attr('href', "checkout.php?shipping=1300");
+               $("#proceed").attr('href', "checkout-process-validation.php?shipping="+shiping_);
 
         }
        });
@@ -356,14 +358,14 @@ if ($products_in_cart) {
                 $("td#subtotal").text(newvalue);
                 var href = $("#proceed").attr('href');
 
-                $("#proceed").attr('href', href+"?shipping=1300");
+                $("#proceed").attr('href', href+"?shipping="+shiping_);
         }
 
         if ($('#express-shipping').is(':checked')) {
                var newvalue = parseInt($("#subtotal").val()) + parseInt($("#express-shipping").val());
                var href = $("#proceed").attr('href');
                $("td#subtotal").text(newvalue);
-               $("#proceed").attr('href', href+"?express_shipping=3000");
+               $("#proceed").attr('href', href+"?express_shipping="+express_shipping);
 
         }
 

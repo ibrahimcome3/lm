@@ -110,3 +110,5 @@
             </div><!-- End .modal-content -->
         </div><!-- End .modal-dialog -->
     </div><!-- End .modal -->
+    
+    <script src="login.js"></script>
