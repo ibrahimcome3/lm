@@ -1986,22 +1986,8 @@ $cat = new Category();
 
     <script>
         $(document).ready(function(){
+            
 
-            $("a.submit-cart").click(function(e){
-                var product_id = $(this).attr( "product-info" );
-                 //inventory_product_id
-                //inventory_product_id
-                $.ajax({
-                    method: "POST",
-                    url: "test3.php",
-                    data: { inventory_product_id: product_id, qty: 1 }
-                })
-                    .done(function( msg ) {
-                        $(".cart-count").text(msg);
-                        console.log( "Data Saved: " + msg );
-                    });
-                e.preventDefault(); // Submit the form
-            });
         });
     </script>
 </body>

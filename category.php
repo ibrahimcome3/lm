@@ -182,7 +182,7 @@ $lastpage = ceil($total_pages/$limit);
                                                 </div><!-- End .product-action-vertical -->
 
                                                 <div class="product-action">
-                                                    <a href="#" class="btn-product btn-cart" product-info="<?=$row['InventoryItemID']?>"><span>add to cart</span></a>
+                                                    <a href="#" class="submit-cart btn-product btn-cart" product-info="<?=$row['InventoryItemID']?>"><span>add to cart</span></a>
                                                 </div><!-- End .product-action -->
                                             </figure><!-- End .product-media -->
 
@@ -386,28 +386,28 @@ $lastpage = ceil($total_pages/$limit);
     <script src="assets/js/jquery.countdown.min.js"></script>
     <script src="assets/js/main.js"></script>
     <script src="assets/js/demos/demo-13.js"></script>
-    <script src="login.js"></script>
+ 
     <!-- Main JS File -->
 
 
      <script>
         $(document).ready(function(){
-            $(".pagination span").css('margin-right', '10px');
-
-            $("a.btn-cart").click(function(e){
-                var product_id = $(this).attr( "product-info" );
+            //$(".pagination span").css('margin-right', '10px');
+        $("a.submit-cart").click(function(e){
+        var product_id = $(this).attr( "product-info" );
+         alert("adding: "+product_id );
                  //inventory_product_id
                 //inventory_product_id
-                $.ajax({
-                    method: "POST",
-                    url: "test3.php",
-                    data: { inventory_product_id: product_id, qty: 1 }
+        $.ajax({
+            method: "POST",
+            url: "test3.php",
+            data: { inventory_product_id: product_id, qty: 1 }
                 })
                     .done(function( msg ) {
                         $(".cart-count").text(msg);
                         console.log( "Data Saved: " + msg );
                     });
-                e.preventDefault(); // Submit the form
+                e.preventDefault();
             });
         });
     </script>

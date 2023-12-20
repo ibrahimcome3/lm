@@ -146,6 +146,7 @@
     <script src="assets/js/jquery.countTo.js"></script>
     <!-- Main JS File -->
     <script src="assets/js/main.js"></script>
+    <script src="login.js"></script>
 </body>
 
 

@@ -1,12 +1,12 @@
 // Main Js File
-$(document).ready(function () {
+$(document).ready(function () { alert(2);
     'use strict';
 
     owlCarousels();
     quantityInputs();
 
     // Header Search Toggle
-
+    
     var $searchWrapper = $('.header-search-wrapper'),
     	$body = $('body'),
         $searchToggle = $('.search-toggle');
@@ -17,7 +17,11 @@ $(document).ready(function () {
 		$searchWrapper.find('input').focus();
 		e.preventDefault();
 	});
-
+    
+    
+   
+            
+            
 	$body.on('click', function (e) {
 		if ( $searchWrapper.hasClass('show') ) {
 			$searchWrapper.removeClass('show');
@@ -753,4 +757,23 @@ $(document).ready(function () {
             }, 500)
         }, 10000)
     }
+    
+     $("a.submit-cart").click(function(e){
+        
+        var product_id = $(this).attr( "product-info" );
+         alert("adding: "+product_id );
+                 //inventory_product_id
+                //inventory_product_id
+        $.ajax({
+            method: "POST",
+            url: "test3.php",
+            data: { inventory_product_id: product_id, qty: 1 }
+                })
+                    .done(function( msg ) {
+                        $(".cart-count").text(msg);
+                        console.log( "Data Saved: " + msg );
+                    });
+                e.preventDefault();
+            });
+    
 });
