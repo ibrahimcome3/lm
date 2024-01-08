@@ -250,7 +250,7 @@ $lastpage = ceil($total_pages/$limit);
                                            $skipped = false;
                                           // echo "<a href='test2.php?pageno=" . $page_number . "'>" . $page_number . "</a>";
                                        ?>
-                                    <li class="page-item active" aria-current="page"><a class='page-link' href="category.php?catid=DRINKS&pageno=<?=$page_number?>"><?=$page_number?></a></li>
+                                    <li class="page-item active" aria-current="page"><a class='page-link' href="<?=$_SERVER['REQUEST_URI']?>&pageno=<?=$page_number?>"><?=$page_number?></a></li>
                                     <?php
                                          }else {
                                         $skipped = true;
@@ -311,7 +311,7 @@ $lastpage = ceil($total_pages/$limit);
                                                 <?php $i++; } ?>
                                                 <input hidden="hidden" name="catid" value= <?=$_GET['catid'] ?>>
 
-                                                <p style="text-align: left; margin-top: 12px;"><input style="width: 95%;" class="btn btn-outline-dark" type="submit">   </p>
+                                                <p style="text-align: left; margin-top: 12px;"><input style="width: 95%;" value="Filter" class="btn btn-outline-dark" type="submit">   </p>
                                                 </form>
 
                                             </div><!-- End .filter-items -->
@@ -386,6 +386,7 @@ $lastpage = ceil($total_pages/$limit);
     <script src="assets/js/jquery.countdown.min.js"></script>
     <script src="assets/js/main.js"></script>
     <script src="assets/js/demos/demo-13.js"></script>
+    <script src="login.js"></script>
  
     <!-- Main JS File -->
 

@@ -91,6 +91,17 @@ class InventoryItem  extends Conn
 
 
     }
+    
+    function get_product_image($id){
+         $pdo = $this->dbc;
+         $sql = "select * from inventory_item_image where inventory_item_id = $id and `is_primary` = 1";
+         $stmt = $pdo->query($sql);
+         $row = $stmt->fetch();
+         if($stmt->rowCount() > 0)
+         return $row['image_path'];
+         else return "e.jpg";
+   
+    }
 
     function decript_string($string){
            $string2 = explode(",",$string);
@@ -101,7 +112,13 @@ class InventoryItem  extends Conn
            }
            return(array_unique($string2));
     }
-
+    function get_description($id){
+        $pdo = $this->dbc;
+        $stmt = $pdo->query("select * from inventoryitem where InventoryItemID = $id");
+        $row = $stmt->fetch();
+        return $row['small_description'];
+        
+    }
     function check_item_in_existance($id){
         $pdo = $this->dbc;
         $stmt = $pdo->query("select * from inventoryitem where InventoryItemID = $id");

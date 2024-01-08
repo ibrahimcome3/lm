@@ -1,6 +1,19 @@
 <?php
 require_once "includes.php";
 include "conn.php";
+//echo $_SERVER['HTTP_REFERER'];
+if(!isset($_SESSION['uid'])){
+   header("Location: login.php");
+   exit(); 
+}
+
+$url = $_SERVER['HTTP_REFERER'];
+$tokens = explode('/', $url);
+//echo $tokens[sizeof($tokens)-1];
+if($tokens[sizeof($tokens)-1] === 'dashboard.php'){
+    $_SESSION[ 'dashboard' ] = TRUE;
+    $_SESSION['durl'] = $tokens[sizeof($tokens)-1];
+}
 try{
 
        $sql = "SELECT `shipping_address_no`, `customer_id`, `address1`, `address2`, `state`, `zip`, `city` FROM `shipping_address` WHERE `customer_id`= ".$_SESSION['uid']." and shipping_address_no = ".$_GET['sno'];
@@ -53,11 +66,15 @@ if(!empty($_POST)){
     }else{
     try{
       $sql = "UPDATE `shipping_address` SET `address1`='$streetaddress1',`address2`='$streetaddress2',`state`='$state',`zip`='$zip',`city`='$city'  WHERE shipping_address_no =". $_GET['sno'] ." and customer_id = $customer_id";
-      echo $sql;
       $res = $mysqli->query($sql);
 
     if($res){
-        header("Location: shipping-address-selection.php");
+        if($_SESSION[ 'dashboard' ] === TRUE){
+          unset( $_SESSION[ 'dashboard' ] );  
+          header("Location: ".$_SESSION['durl']); 
+          exit();          
+        }
+          header("Location: shipping-address-selection.php");
     }else{
         throw new Exception('<br>Could not submit your form. pls try again later<br>');
     }
@@ -71,7 +88,6 @@ if(!empty($_POST)){
 
 
 
-    var_dump($_POST);
     /*
     else{
     $sql = "UPDATE `customer` SET `customer_fname`='$fname',`customer_lname`='$lname', `customer_city`= '$city',`customer_email`= '$email',`customer_address1`='$streetaddress1',`customer_address2`='$streetaddress2',`customer_country`='$country',`customer_state`='$state',`customer_phone`= '$phone_number',`customer_zip`='$zip',`customer_status`='MEMBER',`password`='$password',`profile_image`='anonymous.jpg' WHERE customer_id = $customer_id ";
@@ -143,25 +159,25 @@ if(!empty($_POST)){
                         		    <form action="" method="post">
                         			<h2 class="checkout-title">Edit your address</h2><!-- End .checkout-title -->
                 						<label>Street address *</label>
-                						<input type="text" class="form-control" name="streetaddress1" <?php if(isset($res)) echo "style=\"background-color: #FFFFC7\"" ?> value="<?= $row['address1'] ?>" placeholder="House number and Street name" required>
-                						<input type="text" class="form-control" name="streetaddress2" <?php if(isset($res)) echo "style=\"background-color: #99FFCC\"" ?> value="<?= $row['address2'] ?>" placeholder="Appartments, suite, unit etc ..." required>
+                						<input type="text" class="form-control" name="streetaddress1"  value="<?= $row['address1'] ?>" placeholder="House number and Street name" required>
+                						<input type="text" class="form-control" name="streetaddress2"  value="<?= $row['address2'] ?>" placeholder="Appartments, suite, unit etc ..." required>
 
                 						<div class="row">
                         					<div class="col-sm-6">
                         						<label>Town / City *</label>
-                        						<input type="text" <?php if(isset($res)) echo "style=\"background-color: #FFFFC7\"" ?> value="<?= $row['city'] ?>" name="city" class="form-control" required>
+                        						<input type="text"  value="<?= $row['city'] ?>" name="city" class="form-control" required>
                         					</div><!-- End .col-sm-6 -->
 
                         					<div class="col-sm-6">
                         						<label>State *</label>
-                        						<input type="text" <?php if(isset($res)) echo "style=\"background-color: #FFFFC7\"" ?> value="<?= $row['state'] ?>" name="state" class="form-control" required>
+                        						<input type="text"  value="<?= $row['state'] ?>" name="state" class="form-control" required>
                         					</div><!-- End .col-sm-6 -->
                         				</div><!-- End .row -->
 
                         				<div class="row">
                         					<div class="col-sm-6">
                         						<label>Postcode / ZIP *</label>
-                        						<input type="text" <?php if(isset($res)) echo "style=\"background-color: #FFFFC7\"" ?> name="zip" value="<?= $row['zip'] ?>" class="form-control">
+                        						<input type="text"  name="zip" value="<?= $row['zip'] ?>" class="form-control">
                         					</div><!-- End .col-sm-6 -->
 
                         				</div><!-- End .row -->

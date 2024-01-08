@@ -9,12 +9,20 @@ require_once  'C:\wamp64\www\lm\class\Conn.php';
     require_once  'C:\wamp64\www\lm\class\Variation.php';
     require_once  "C:\wamp64\www\lm\class\Promotion.php";
     require_once  "C:\wamp64\www\lm\class\WishList.php";
+    
     include 'breadcrumps.php';
     $product_obj = new ProductItem();
     $promotion = new Promotion();
     $Orvi = new Review();
-    $wishlist = new WishList();
+
     $invt = new InventoryItem();
+    if(isset($_SESSION['uid'])){
+    $wishlist = new WishList($_SESSION['uid']);
+    require_once  "C:\wamp64\www\lm\class\User.php";
+    require_once  "C:\wamp64\www\lm\class\Order.php";
+    $user_ = new User();
+    $orders = new Order();
+    }
 
   function getImage($id_of_what_get_image){
   include "conn.php";

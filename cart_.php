@@ -302,6 +302,7 @@ if ($products_in_cart) {
     <script src="assets/js/bootstrap-input-spinner.js"></script>
     <!-- Main JS File -->
     <script src="assets/js/main.js"></script>
+	<script src="login.js"></script>
 
     <script>
      $(document).ready(function(){

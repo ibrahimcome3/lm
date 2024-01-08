@@ -93,11 +93,12 @@ class ProductItem  extends Conn
     function get_all_product_items_that_are_less_than_one_month(){
         $ar = array();
         $pdo = $this->dbc;
-        $stmt = $pdo->prepare("SELECT * FROM productitem WHERE `date_added` > DATE_SUB(NOW(), INTERVAL 1 MONTH)");
+        //$stmt = $pdo->prepare("SELECT * FROM productitem WHERE `date_added` > DATE_SUB(NOW(), INTERVAL 1 MONTH)");
+        $stmt = $pdo->prepare("SELECT * FROM inventoryitem WHERE `date_added` BETWEEN NOW() - INTERVAL 30 DAY AND NOW()");
         $stmt->execute();
         if($stmt->rowCount() > 0) {
           while($row = $stmt->fetch()){
-               array_push($ar, $row['productID']);
+               array_push($ar, $row['InventoryItemID']);
           }
          return $ar;
         }else{

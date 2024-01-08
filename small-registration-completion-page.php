@@ -1,36 +1,11 @@
 <!DOCTYPE html>
+
 <?php
-require_once "includes.php";
-var_dump($_SESSION);
-if(!empty($_POST)){
-  $customer_id = $_SESSION['small-registration']['new-customer-id'];
-  $fname= $_POST['firstname'];
-  $lname=$_POST['lastname'];
-  $email=$_POST['email'];
-  $password=$_POST['password'];
-  $streetaddress1=$_POST['streetaddress1'];
-  $streetaddress2=$_POST['streetaddress2'];
-  $country= 'NIGERIA';
-  $state=$_POST['state'];
-  $city=$_POST['city'];
-  $phone_number=$_POST['phone'];
-  $zip=$_POST['zip'];
-
-  if(empty($city) || empty($zip) ||  empty($customer_id) || empty($password) || empty($fname) || empty($lname) || empty($email) || empty($country) || empty($state) || empty($streetaddress1) || empty($streetaddress2)){
-  $error =   "some field missing";
-  //exit(0);
-  }else{
-  $sql = "UPDATE `customer` SET `customer_fname`='$fname',`customer_lname`='$lname', `customer_city`= '$city',`customer_email`= '$email',`customer_address1`='$streetaddress1',`customer_address2`='$streetaddress2',`customer_country`='$country',`customer_state`='$state',`customer_phone`= '$phone_number',`customer_zip`='$zip',`customer_status`='MEMBER',`password`='$password',`profile_image`='anonymous.jpg' WHERE customer_id = $customer_id ";
-  echo $sql;
-  $res = $mysqli->query($sql);
-  if($res){
-    header("Location: complete-registration-confermation-page.php");
-  }
-
-  }
-}
-
-?>
+session_start();
+ if(!isset($_SESSION['INCOMPLETE-REGISTRATION']['uid'])){
+    var_dump($_SESSION);
+    //header("location: index.php");
+} ?>
 <html lang="en">
 
 
@@ -69,7 +44,7 @@ if(!empty($_POST)){
                         	<div class="checkout">
                                         <div class="container">
                                             <?php if(isset($error)) echo "<h4 style='color: red'>".$error."</h4>"; ?>
-                                                        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                    <form action="small-registration-completion-page-process.php" method="POST">
                         	<div class="row">
                         		<div class="col-lg-9">
                         			<h4 class="widget-title">Customer Registration</h4><!-- End .checkout-title -->
@@ -112,12 +87,13 @@ if(!empty($_POST)){
                         						<input type="tel" name="phone" class="form-control" required>
                         					</div><!-- End .col-sm-6 -->
                         				</div><!-- End .row -->
+                                        <input type="hidden" value="<?= $_SESSION['INCOMPLETE-REGISTRATION']['uid'] ?>" name="customer_id" >
 
                     					<label>Email address *</label>
-            							<input type="email" name="email" value=<?php if(isset($_SESSION['small-registration'])){ echo($_SESSION['small-registration']['new-customer-email']); } ?> class="form-control" required>
+            							<input type="email"  name="email" value=<?php echo $_SESSION['INCOMPLETE-REGISTRATION']['email'] ?> class="form-control" readonly>
 
                                         <label>Password *</label>
-            							<input type="password" name="password" type="password" value=<?php if(isset($_SESSION['small-registration'])){ echo($_SESSION['small-registration']['new-customer-password']); } ?> class="form-control" required>
+            							<input type="password" name="password" type="password" value=<?php echo  $_SESSION['INCOMPLETE-REGISTRATION']['password'] ?> class="form-control" required>
                                            <button type="submit" class="btn btn-primary btn-round">
                                                 					<span>Submit</span><i class="icon-long-arrow-right"></i>
                                                 			 </button>
@@ -146,14 +122,7 @@ if(!empty($_POST)){
         <!-- Sign in / Register Modal -->
         <?php include "login-modal.php"; ?>
         <!-- Plugins JS File -->
-        <script src="assets/js/jquery.min.js"></script>
-        <script src="assets/js/bootstrap.bundle.min.js"></script>
-        <script src="assets/js/jquery.hoverIntent.min.js"></script>
-        <script src="assets/js/jquery.waypoints.min.js"></script>
-        <script src="assets/js/superfish.min.js"></script>
-        <script src="assets/js/owl.carousel.min.js"></script>
-        <!-- Main JS File -->
-        <script src="assets/js/main.js"></script>
+        <?php include "jsfile.php"; ?>
 </body>
 
 

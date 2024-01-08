@@ -2,11 +2,12 @@
 <?php
 require_once "includes.php";
 if(isset($_SESSION['uid'])){
-require_once  'C:\wamp64\www\lm\conn.php';
+require_once  'conn.php';
 $sql = "SELECT * FROM `wishlist` LEFT JOIN inventoryitem ON wishlist.`inventory_item_id` = inventoryitem.`InventoryItemID` WHERE customer_id = ".$_SESSION['uid'];
 $result = $mysqli->query($sql);
 }else{
-    echo "Pls click <a href='login.php'>here</a> to login";
+    header("Location: login.php");
+    exit();
 }
 
 ?>

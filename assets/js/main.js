@@ -1,5 +1,5 @@
 // Main Js File
-$(document).ready(function () { alert(2);
+$(document).ready(function () { 
     'use strict';
 
     owlCarousels();
@@ -759,9 +759,8 @@ $(document).ready(function () { alert(2);
     }
     
      $("a.submit-cart").click(function(e){
-        
         var product_id = $(this).attr( "product-info" );
-         alert("adding: "+product_id );
+         //alert("adding: "+product_id );
                  //inventory_product_id
                 //inventory_product_id
         $.ajax({
@@ -770,7 +769,38 @@ $(document).ready(function () { alert(2);
             data: { inventory_product_id: product_id, qty: 1 }
                 })
                     .done(function( msg ) {
-                        $(".cart-count").text(msg);
+                        $(".cart-count").text(function(){
+                          $(this).load( "cart_count.php"); 
+                         });
+                         
+                         $.ajax({
+                          method: "POST",
+                          url: "cart_ajax_response.php",
+                          data: { arr: product_id }
+                        })
+                          .done(function( msg ) {
+                            alert( "data from the server is : " + msg );
+                        });
+                         
+                    let str =   '<div class="product">'+
+                                '        <div class="product-cart-details">             '+
+                                '         <h4 class="product-title">                    '+
+                                '             <a href="product.html"></a>               '+
+                                '          </h4>                                        '+
+                                '           <span class="cart-product-info">            '+
+                                '               <span class="cart-product-qty"></span>  '+
+                                '                &nbsp;x N&nbsp;                        '+
+                                '            </span>                                    '+
+                                '        </div>                                         '+
+                                '        <figure class="product-image-container">       '+
+                                '             <a href="product-detail?itemid=9" class="product-image">'+
+                                '               <img src="" alt="product">              '+
+                                '            </a>                                       '+
+                                '        </figure>                                      '+
+                                '        <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>'+
+                                '</div>';
+                                alert(str);
+                        $("#card-drop-down").append(str);        
                         console.log( "Data Saved: " + msg );
                     });
                 e.preventDefault();

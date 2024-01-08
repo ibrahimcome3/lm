@@ -12,7 +12,7 @@ include 'breadcrumps.php';
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Molla - Bootstrap eCommerce Template</title>
+    <title>Shipping address</title>
     <meta name="keywords" content="HTML5 Template">
     <meta name="description" content="Molla - Bootstrap eCommerce Template">
     <meta name="author" content="p-themes">
@@ -111,15 +111,7 @@ include 'breadcrumps.php';
     <?php include "login-modal.php"; ?>
     <!-- Sign in / Register Modal -->
     <!-- Plugins JS File -->
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/jquery.hoverIntent.min.js"></script>
-    <script src="assets/js/jquery.waypoints.min.js"></script>
-    <script src="assets/js/superfish.min.js"></script>
-    <script src="assets/js/owl.carousel.min.js"></script>
-    <!-- Main JS File -->
-    <script src="assets/js/main.js"></script>
-    <script src="login.js"></script>
+     <?php include "jsfile.php"; ?>
 </body>
 
 

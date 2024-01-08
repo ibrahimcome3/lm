@@ -1,4 +1,5 @@
  <div class="modal fade" id="signin-modal" tabindex="-1" role="dialog" aria-hidden="true">
+       
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-body">
@@ -16,16 +17,17 @@
                                 </li>
                             </ul>
                             <div class="tab-content" id="tab-content-5">
+                             <div style="margin-top:5px"><center><span id="error-01"></span></center></div>
                                 <div class="tab-pane fade show active" id="signin" role="tabpanel" aria-labelledby="signin-tab">
                                     <form action="#">
                                         <div class="form-group">
                                             <label for="singin-email">Username or email address *</label>
-                                            <input type="text" class="form-control" id="singin-email" name="singin-email" required>
+                                            <input type="text" class="form-control" id="singinemail" name="singin-email" required>
                                         </div><!-- End .form-group -->
 
                                         <div class="form-group">
                                             <label for="singin-password">Password *</label>
-                                            <input type="password" class="form-control" id="singin-password" name="singin-password" required>
+                                            <input type="password" class="form-control" id="singinpassword" name="singin-password" required>
                                         </div><!-- End .form-group -->
 
                                         <div class="form-footer">
@@ -39,7 +41,7 @@
                                                 <label class="custom-control-label" for="signin-remember">Remember Me</label>
                                             </div><!-- End .custom-checkbox -->
 
-                                            <a href="#" class="forgot-link">Forgot Your Password?</a>
+                                            <a href="password-reset.php" class="forgot-link">Forgot Your Password?</a>
                                         </div><!-- End .form-footer -->
                                     </form>
              

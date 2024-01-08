@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <?php
 require_once "includes.php";
 
@@ -11,7 +12,7 @@ require_once "includes.php";
 
 ?>
 
-<!DOCTYPE html>
+
 <html lang="en">
 
 

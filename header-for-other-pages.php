@@ -1,7 +1,8 @@
 <?php
+
 $wished_list_count = 0;
-if(isset($_SESSION['uid']))
-$wished_list_count = $wishlist->get_wished_list_item($_SESSION["uid"]);
+//if(isset($_SESSION['uid']))
+//$wished_list_count = $wishlist->get_wished_list_item($_SESSION["uid"]);
 
 ?>
  <header class="header">
@@ -18,16 +19,20 @@ $wished_list_count = $wishlist->get_wished_list_item($_SESSION["uid"]);
                                     <?php   // var_dump($_SESSION) ?>
                                     <li><a href="tel:#"><i class="icon-phone"></i>Call: +2348051067944</a></li>
                                     <?php if(isset($_SESSION["uid"])){ ?>
-                                    <li><a href="wishlist.php"><i class="icon-heart-o"></i>Wishlist <span>(<?= $wished_list_count; ?>)</span></a></li>
+                                    <?php  ?>
+                                    <li><a href="wishlist.php"><i class="icon-heart-o"></i>Wishlist <span>(<?= $wishlist->no_of_wish_list_item ?>)</span></a></li>
                                    <?php }else{ ?>
-                                    <li><a href="#"><i class="icon-heart-o"></i>Wishlist <span>(<?= $wished_list_count; ?>)</span></a></li>
+                                    <li><a href="wishlist.php"><i class="icon-heart-o"></i>Wishlist <span>(0)</span></a></li>
                                    <?php } ?>
                                     <li><a href="about.php">About Us</a></li>
                                     <li><a href="contact.php">Contact Us</a></li>
                                     <?php if(isset($_SESSION["uid"])){ ?>
-                                    <li><a href="logout.php" data-toggle="modal"><i class="icon-user"></i>Log Out</a></li>
+                                    <li><a href="logout.php"><i class="icon-user"></i>Log Out</a></li>
+                                    <li><a href="dashboard.php"><i class="icon-user"></i>Dashboard</a></li>
+                                    
                                    <?php }else{ ?>
-                                    <li><a href="#signin-modal" data-toggle="modal"><i class="icon-user"></i>Login</a></li>
+                                   <!-- <li><a href="#signin-modal" data-toggle="modal"><i class="icon-user"></i>Login</a></li> -->
+                                   <li><a href="login.php" ><i class="icon-user"></i>Login</a></li>
                                     <?php } ?>
                              </ul>
                             </li>
@@ -56,10 +61,11 @@ $wished_list_count = $wishlist->get_wished_list_item($_SESSION["uid"]);
                     <div class="header-right">
                         <div class="header-search">
                             <a href="#" class="search-toggle" role="button" title="Search"><i class="icon-search"></i></a>
-                            <form action="#" method="get">
+                            <form action="product-search.php" method="get">
                                 <div class="header-search-wrapper">
                                     <label for="q" class="sr-only">Search</label>
                                     <input type="search" class="form-control" name="q" id="q" placeholder="Search in..." required>
+                                    <input type="submit" class="btn btn-primary btn-round" value="search">
                                 </div><!-- End .header-search-wrapper -->
                             </form>
                         </div><!-- End .header-search -->
@@ -120,7 +126,6 @@ $wished_list_count = $wishlist->get_wished_list_item($_SESSION["uid"]);
 
                                  ?>
                                 <div class="product">
-
                                         <div class="product-cart-details">
                                             <h4 class="product-title">
                                                 <a href="product.html"><?= $row__['small_description'] ?></a>
@@ -138,7 +143,7 @@ $wished_list_count = $wishlist->get_wished_list_item($_SESSION["uid"]);
                                             </a>
                                         </figure>
                                         <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
-                                    </div><!-- End .product -->
+                                </div><!-- End .product -->
                                 <?php
                                 $sum += $_SESSION['cart'][$row__['InventoryItemID']] *  $row__['cost'];
 

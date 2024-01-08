@@ -7,7 +7,7 @@ require_once  'C:\wamp64\www\lm\class\Conn.php';
 //require_once  'C:\wamp64\www\lm\class\InventoryItem.php';
 require_once  'C:\wamp64\www\lm\class\Review.php';
 
-
+ 
 
 //$id_of_what_get_image =  $item = 66;
 //$result_final = array();
@@ -80,13 +80,13 @@ require_once  'C:\wamp64\www\lm\class\Review.php';
 */
 
 
-  $obj = new Review();
-  echo $obj->get_rating_review_number(99);
+ // $//obj = new Review();
+  //echo $obj->get_rating_review_number(99);
  //     $stmt =  $obj->get_reviews_by_inventory_item(23);
  //     var_dump($stmt);
    //                                                                                while($row = $stmt->fetch()){
   //                                                                                           echo $row['review_text'];
-   //                                                                               }
+   //                                                                            //   }
 
 
 

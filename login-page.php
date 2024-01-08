@@ -28,6 +28,8 @@ require_once "includes.php";
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <!-- Main CSS File -->
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/skins/skin-demo-13.css">
+    <link rel="stylesheet" href="assets/css/demos/demo-13.css">
 </head>
 
 <body>
@@ -113,13 +115,6 @@ require_once "includes.php";
         <?php include "login-modal.php"; ?>
 
     <!-- Plugins JS File -->
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/jquery.hoverIntent.min.js"></script>
-    <script src="assets/js/jquery.waypoints.min.js"></script>
-    <script src="assets/js/superfish.min.js"></script>
-    <script src="assets/js/owl.carousel.min.js"></script>
-    <!-- Main JS File -->
-    <script src="assets/js/main.js"></script>
+ <?php include "jsfile.php"; ?>
 </body>
 </html>

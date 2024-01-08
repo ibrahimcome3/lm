@@ -34,8 +34,8 @@ if (!empty($_POST))
             {
                 $_POST['singinpassword'] = stripslashes($_POST['singinpassword']);
                 $info['password'] = stripslashes($info['password']);
-                // $_POST['pass'] = md5($_POST['pass']);
-                if ($_POST['singinpassword'] != $info['password'])
+       
+                if (md5($_POST['singinpassword']) != $info['password'])
                 {
                     $er = "Incorrect password";
                     header("Location: login-page.php?er=".$er);

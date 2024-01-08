@@ -15,11 +15,12 @@
                             <li>
 
                                 <ul>
-
+                                    <li class=""><a href="about.php">About us</a></li>
                                     <?php if(!isset($_SESSION["uid"])){ ?>
                                     <li class="login"><a href="#signin-modal" data-toggle="modal">Sign in / Sign up</a></li>
                                     <?php }else{ ?>
                                     <li class="login"><a href="logout.php">log out</a></li>
+                                    <li class="login"><a href="dashboard.php"><i class="icon-user"></i>Dashboard</a></li>
                                     <?php } ?>
 
                                 </ul>
@@ -46,8 +47,8 @@
 
                     <div class="header-center">
                         <div class="header-search header-search-extended header-search-visible header-search-no-radius d-none d-lg-block">
-                            <a href="#" class="search-toggle" role="button"><i class="icon-search"></i></a>
-                           < <form action="search.php" method="get">
+                            <a href="" class="search-toggle" role="button"><i class="icon-search"></i></a>
+                            <form action="product-search.php" method="get">
                                 <div class="header-search-wrapper search-wrapper-wide">
                                  <!--   <div class="select-custom">
                                         <select id="cat" name="cat">
@@ -80,7 +81,7 @@
                         <div class="header-dropdown-link">
 
 
-                            <a href="wishlist.html" class="wishlist-link">
+                            <a href="wishlist.php" class="wishlist-link">
                                 <i class="icon-heart-o"></i>
                                 <span class="wishlist-count">0</span>
                                 <span class="wishlist-txt">Wishlist</span>
@@ -94,7 +95,7 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <div class="dropdown-cart-products">
+                                    <div class="dropdown-cart-products" id="card-drop-down">
 
                                     </div><!-- End .cart-product -->
 

@@ -48,11 +48,11 @@ class Promotion  extends Conn
 
    function get_regular_price($id){
           $pdo = $this->dbc;
-          $stmt = $pdo->query("SELECT * FROM `promotion_items` WHERE `InventoryItemID` =  $id");
+          $stmt = $pdo->query("SELECT * FROM inventoryitem WHERE InventoryItemID = $id");
           $row_count = $stmt->rowCount();
           if($row_count > 0){
           $row = $stmt->fetch();
-          return $row['regularPrice'];
+          return $row['cost'];
           }else{ return false;}
 
         }
