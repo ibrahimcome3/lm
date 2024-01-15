@@ -1,7 +1,13 @@
 // Main Js File
 $(document).ready(function () { 
     'use strict';
-
+    $(".cart-count").text(function(){
+        $(this).load( "cart_count.php"); 
+    });
+    
+    $(".cart-total-price").text(function(){
+    $(this).load( "cart_total_cost.php");
+    });
     owlCarousels();
     quantityInputs();
 
@@ -772,15 +778,19 @@ $(document).ready(function () {
                         $(".cart-count").text(function(){
                           $(this).load( "cart_count.php"); 
                          });
-                         
+                        
                          $.ajax({
                           method: "POST",
                           url: "cart_ajax_response.php",
                           data: { arr: product_id }
                         })
                           .done(function( msg ) {
-                            alert( "data from the server is : " + msg );
-                        });
+                          $("#card-drop-down").empty(); 
+                          $("#card-drop-down").html(msg); 
+                          $(".cart-total-price").text(function(){
+                          $(this).load( "cart_total_cost.php");
+                          });
+                            });
                          
                     let str =   '<div class="product">'+
                                 '        <div class="product-cart-details">             '+
@@ -799,11 +809,31 @@ $(document).ready(function () {
                                 '        </figure>                                      '+
                                 '        <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>'+
                                 '</div>';
-                                alert(str);
-                        $("#card-drop-down").append(str);        
+                                //alert(str);
+                               
                         console.log( "Data Saved: " + msg );
+                        $(".cart-total-price").text(function(){
+                        $(this).load( "cart_total_cost.php");
+                        });
                     });
                 e.preventDefault();
+            });
+            
+            $(".cart-dropdown").on( "click", ".btn-remove", function(e) {
+               alert($(this).attr("itemid")); 
+               let elem = $(this);
+               $.ajax({
+                          method: "POST",
+                          url: "delete_from_cart.php",
+                          data: { itmid: $(this).attr("itemid") }
+                }).done(function( msg ) {
+                        alert(msg);
+                        elem.parentsUntil(".dropdown-cart-products").css("background-color", "yellow").remove();
+                        $(".cart-total-price").text(function(){
+                        $(this).load( "cart_total_cost.php");
+                        });
+                });
+               e.preventDefault();
             });
     
 });

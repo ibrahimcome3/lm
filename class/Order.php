@@ -30,6 +30,17 @@
       }
    }
    
+   
+    function _delete_item_from_cart($id){
+      session_start();
+      if ( is_numeric($id) && isset($_SESSION['cart']) && isset($_SESSION['cart'][$id])) {
+          unset($_SESSION['cart'][$_POST['remove']]);
+          echo true;
+      }else{
+          echo "error";
+      }
+   }
+   
    function remove_order_item_from_an_order($oid,$id){
       $sql = "DELETE FROM `lm_order_line` WHERE `InventoryItemID` = $id and `orderID` = $oid"; 
       $pdo = $this->dbc;
