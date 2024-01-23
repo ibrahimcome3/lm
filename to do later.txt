@@ -1,0 +1,103 @@
+                               
+                                                  <?php
+                                                
+                             if(isset($_SESSION['cart']) && count($_SESSION['cart']) > 0){   ?>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <div class="dropdown-cart-products">
+                                <?php
+                                $arr = array();
+                                foreach($_SESSION['cart'] as $key => $value){
+                                 $stmt__ = $pdo->prepare('SELECT * FROM inventoryitem WHERE InventoryItemID = ?');
+                                 $stmt__->execute([$key]);
+                                 $row__ = $stmt__->fetch(PDO::FETCH_ASSOC);
+                                 array_push($arr, $row__['InventoryItemID']);
+                                 }
+
+                                 $tags = implode(',', $arr);
+                                 $sql__ = "SELECT * FROM inventoryitem WHERE InventoryItemID in ($tags)";
+                                 $stmt__ = $pdo->query($sql__);
+
+                                 $sum = 0;
+                                 while($row__ = $stmt__->fetch()){
+                                       if($promotion->check_if_item_is_in_inventory_promotion($row__['InventoryItemID'])){
+                                        $row__['cost'] = $promotion->get_promoPrice_price($row__['InventoryItemID']);
+                                       }
+
+                                 ?>
+                                <div class="product">
+                                        <div class="product-cart-details">
+                                            <h4 class="product-title">
+                                                <a href="product.html"><?= $row__['small_description'] ?></a>
+                                            </h4>
+
+                                            <span class="cart-product-info">
+                                                <span class="cart-product-qty"><?= $_SESSION['cart'][$row__['InventoryItemID']] ?></span>
+                                                &nbsp;x N&nbsp;<?= $row__['cost'] ?>
+                                            </span>
+                                        </div><!-- End .product-cart-details -->
+
+                                        <figure class="product-image-container">
+                                             <a href="product-detail?itemid=<?=$row__['InventoryItemID'] ?>" class="product-image">
+                                                <img src="<?= getImage($row__['InventoryItemID']); ?>" alt="product">
+                                            </a>
+                                        </figure>
+                                        <a href="#" class="btn-remove" itemid="<?=$row__['InventoryItemID']?>" title="Remove Product"><i class="icon-close"></i></a>
+                                </div><!-- End .product -->
+                                <?php
+                                $sum += $_SESSION['cart'][$row__['InventoryItemID']] *  $row__['cost'];
+
+                                } ?>
+
+                                </div><!-- End .cart-product -->
+
+                                <div class="dropdown-cart-total">
+                                    <span>Total</span>
+
+                                    <span class="cart-total-price">N&nbsp;</span>
+                                </div><!-- End .dropdown-cart-total -->
+
+                                <div class="dropdown-cart-action">
+                                    <a href="cart_.php" class="btn btn-primary">View Cart</a>
+                                    <a href="final_cart_set_up.php" class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>
+                                </div><!-- End .dropdown-cart-total -->
+                            </div><!-- End .dropdown-menu -->
+                            <?php } ?>
+                               
+                            </div><!-- End .cart-dropdown -->
+                        </div>
+                    </div><!-- End .header-right -->
+                </div><!-- End .container -->
+            </div><!-- End .header-middle -->
+
+            <div class="header-bottom sticky-header">
+                <div class="container">
+                    <div class="header-left">
+                        <div class="dropdown category-dropdown show is-on" data-visible="true">
+                            <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" data-display="static" title="Browse Categories">
+                                Browse Categories
+                            </a>
+
+                            <div class="dropdown-menu show">
+                                <nav class="side-nav">
+                                           <?php
+                                                $object = new Category();
+                                                $stmt = $object->get_parent_category();
+                                           ?>
+                                        
+                                    <ul class="menu-vertical sf-arrows">
+                                    <?php
+                                    while ($row = $stmt->fetch()) {
+                                    ?>
+                                    <li class="megamenu-container">
+                                    <a class="sf-with-ul" href="<?php echo 'category.php?catid='.$row['cat']  ?>"><?=$row['cat']?></a>
+                                    </li>
+
+                                    <?php
+
+                                    }
+                                    ?>
+
+
+
+                                    </ul><!-- End .menu-vertical -->
+                                </nav><!-- End .side-nav -->

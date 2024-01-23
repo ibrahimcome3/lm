@@ -66,7 +66,7 @@ require_once "includes.php";
             			<div class="form-tab">
 
 							    <div class="center">
-							        <div class="row"><a href="login-account.php" style="color: #fff; background-color: #6699CC;" class="btn btn-primary btn-shadow form-control">Login</a></div>
+							        <div class="row"><a href="login.php" style="color: #fff; background-color: #6699CC;" class="btn btn-primary btn-shadow form-control">Login</a></div>
                                     <p style="text-align: center; margin-bottom: 8px;"><b>or</b></p>
                                     <div class="row"><a href="register.php" style="color: #fff; background-color: #6699CC;" class="btn btn-primary btn-shadow form-control ">Sign Up</a></div>
 							    </div><!-- .End .tab-pane -->

@@ -34,7 +34,7 @@ $er = Array();
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>LM - Shopping address selection page </title>
     <meta name="keywords" content="HTML5 Template">
-    <meta name="description" content="Molla - Bootstrap eCommerce Template">
+    <meta name="description" content="">
     <meta name="author" content="p-themes">
     <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="assets/images/icons/apple-touch-icon.png">

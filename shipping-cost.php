@@ -6,6 +6,10 @@ require_once "includes.php";
           exit();
    }
 
+   if(!isset($_SESSION['cart'])){
+    header("Location: index.php");
+   }
+
 ?>
 
 <!DOCTYPE html>

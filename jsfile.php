@@ -18,7 +18,8 @@
     <script src="assets/js/demos/demo-13.js"></script>
     <script src="assets/js/main.js"></script>
     <script src="login.js"></script>
-    <script src="assets/js/loadrelateditems.js"></script>
+ <!--  <script src="cart.js"></script> -->
+  
     <script src="assets/js/reviewjs.js"></script>
 	
 <script>

@@ -1,15 +1,7 @@
 <?php
-session_start();
-//echo getpromotionending(1);
-include "conn.php";
-include  'C:\wamp64\www\lm\class\Conn.php';
-    include  'C:\wamp64\www\lm\class\InventoryItem.php';
-    include  'C:\wamp64\www\lm\class\Category.php';
-    include  'C:\wamp64\www\lm\class\Review.php';
-    include  'C:\wamp64\www\lm\class\ProductItem.php';
-    include  'C:\wamp64\www\lm\class\Variation.php';
-    include  "C:\wamp64\www\lm\class\Promotion.php";
-    include 'breadcrumps.php';
+
+include "includes.php";
+
     $Orvi = new Review();
 $var_obj = new Variation();
 $p = new ProductItem();
@@ -1967,14 +1959,45 @@ $cat = new Category();
         <!-- Sign in / Register Modal -->
      <?php include "login-modal.php"; ?>
 
-     <?php include "jsfile.php"; ?>
+   
 
     
  
 
 
 </body>
+<?php include "jsfile.php"; ?>
+<script>
+ $(document).ready(function () { 
+  
 
 
+  
+function load_cart_(){
+	 $(".cart-count").text(function(){
+       $(this).load( "cart_count.php"); 
+     }); 
+};  
+  
+
+load_cart_();
+ 
+ $("a.submit-cart").click(function(e){
+        var product_id = $(this).attr( "product-info" );
+        $.ajax({
+            method: "POST",
+            url: "test3.php",
+            data: { inventory_product_id: product_id, qty: 1 }
+                })
+                .done(function( msg ) {
+                load_cart_();
+                });
+                e.preventDefault();
+            });
+            
+
+});
+ 
+</script>
 <!-- molla/index-13.html  22 Nov 2019 09:59:31 GMT -->
 </html>

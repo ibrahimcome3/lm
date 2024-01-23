@@ -385,10 +385,10 @@ $num_items_in_cart = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
     <!-- Plugins JS File -->
     <?php include "jsfile.php"; ?>
 
-    
-    </script>
+     
+ 
 </body>
-
+ <script src="assets/js/loadrelateditems.js"></script>
 
 <!-- molla/product-sidebar.html  22 Nov 2019 10:03:37 GMT -->
 </html>

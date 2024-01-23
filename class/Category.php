@@ -63,17 +63,20 @@ class Category  extends Conn
           return  $row['categoryName'];
     }
 
-          function get_parent_category_name($id){
+          function get_parent_category_name($id = 1){
           $pdo = $this->dbc;
-          $cat = $this->get_categorie_id($id);
-          $stmt = $pdo->query("select categoryName from category_new where cat_id = $cat");
+          if(!isset($id)) $id = 1;
+          $sql = "select * from inventoryitem left join category_new on category_new.cat_id = inventoryitem.category where inventoryitemid = $id";
+          $stmt = $pdo->query($sql);
           $row = $stmt->fetch();
           return  $row['categoryName'];
     }
 
-         function get_categorie_id($id){
+         function get_categorie_id($id=1){
           $pdo = $this->dbc;
-          $stmt = $pdo->query("select category from inventoryitem where InventoryItemID = $id");
+          $sql = "select category from inventoryitem where InventoryItemID = $id";
+          //echo $sql;
+          $stmt = $pdo->query($sql);
           if($stmt){
           $row = $stmt->fetch();
           return  $row['category'];
@@ -134,8 +137,9 @@ class Category  extends Conn
 
     function get_category_by_id($id){
        $pdo = $this->dbc;
-       $sql_ ="SELECT json_ from category_new where cat_id =".$this->get_categorie_id($id);
+       //$sql_ ="SELECT json_ from category_new where cat_id =".$this->get_categorie_id($id);
       // echo $sql_;
+       $sql_ ="SELECT json_ from category_new where cat_id = 2";
        $stmt = $pdo->query($sql_);
        $row = $stmt->fetch();
        $decoded_jason_array = json_decode($row['json_']);
