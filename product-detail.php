@@ -351,15 +351,7 @@ $num_items_in_cart = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
                                                                         <a href="<?='category.php?catid='.$r ?>" class="btn btn-outline-dark-3"><span>View More Products</span><i class="icon-long-arrow-right"></i></a>
                                                                 </div><!-- End .widget widget-products -->
 
-                                                                <div class="widget widget-banner-sidebar">
-                                                                        <div class="banner-sidebar-title">ad box 280 x 280</div><!-- End .ad-title -->
-
-                                                                        <div class="banner-sidebar banner-overlay">
-                                                                                <a href="#">
-                                                                                        <img src="assets/images/blog/sidebar/banner.jpg" alt="banner">
-                                                                                </a>
-                                                                        </div><!-- End .banner-ad -->
-                                                                </div><!-- End .widget -->
+      
                                                         </div><!-- End .sidebar sidebar-product -->
                                                 </aside><!-- End .col-lg-3 -->
                                         </div><!-- End .row -->
