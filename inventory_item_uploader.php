@@ -10,6 +10,7 @@ include "conn.php";
      $product_item = $_POST['productid'];
      $cat = $_POST['category'];
      $sku = $_POST['sku'];
+     $barcode = $_POST['barcode'];
 
         foreach ($file['name'] as $i => $name) {
         $allowedTypes = array(IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_GIF);
@@ -22,7 +23,7 @@ include "conn.php";
         }
         }
 
-     $sql = "INSERT INTO `inventoryitem`(`InventoryItemID`, `small_description`, `quantityOnHand`, `cost`, `reorderQuantity`, `productItemID`, `date_added`, `category`, `sku`) VALUES (null,'$description','$qonhand','$cost','$reorder_quitity','$product_item', CURRENT_TIMESTAMP,'$cat','$sku')";
+     $sql = "INSERT INTO `inventoryitem`(`InventoryItemID`, `small_description`, `quantityOnHand`, `cost`, `reorderQuantity`, `productItemID`, `date_added`, `category`, `sku`, barcode) VALUES (null,'$description','$qonhand','$cost','$reorder_quitity','$product_item', CURRENT_TIMESTAMP,'$cat','$sku', '$barcode')";
      $result = $mysqli->query($sql);
      $last_id = mysqli_insert_id($mysqli);
 

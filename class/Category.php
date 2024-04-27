@@ -1,5 +1,5 @@
 <?php
-class Category  extends Conn
+class Category  extends Connn
 {
     private  $timestamp;
     private   $parentIDS;

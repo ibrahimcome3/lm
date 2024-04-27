@@ -23,6 +23,36 @@
 			
 			}
 			
+			public function add_shipping_address($last_id){
+			    include "conn.php";
+			    
+			     $sql="INSERT INTO `shipping_address`(`shipping_address_no`, `customer_id`, `address1`, `address2`, `state`, `zip`, ship_cost) VALUES (null, $last_id,'".$_SESSION['registration']['streetaddress1']."','".$_SESSION['registration']['streetaddress2']."','".$_SESSION['registration']['state']."','".$_SESSION['registration']['zip']."', '".$_SESSION['registration']['shipment']."')";
+			     if($mysqli->query($sql)){
+			         return true;
+			     }else return false;
+			    
+			    
+			}
+			
+			function new_user(){
+			 include "conn.php";  
+      $sql = "INSERT INTO `customer`(`customer_id`, `customer_fname`, `customer_lname`,  `customer_email`, `password`,  `customer_address1`, `customer_address2`, `customer_state`, `customer_phone`, `customer_zip`) VALUES (NULL, '".$_SESSION['registration']['firstname']."', '".$_SESSION['registration']['lastname']."', '".$_SESSION['registration']['email']."', '".md5($_SESSION['registration']['password'])."', '".$_SESSION['registration']['streetaddress1']."', '".$_SESSION['registration']['streetaddress2']."',  '".$_SESSION['registration']['state']."', '".$_SESSION['registration']['phone']."','".$_SESSION['registration']['zip']."');";
+       
+ 
+            $result = $mysqli->query($sql);
+            $last_id = $mysqli->insert_id;
+          
+            if($result){
+                return $last_id;
+
+            }
+			 
+			}
+			
+			function  unset_session(){
+			   unset($_SESSION['registration']);
+			}
+			
 			function check_email_account_exit($email){
 			  include "conn.php";	
 			   //echo $this->generateRandomString();

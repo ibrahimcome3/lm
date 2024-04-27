@@ -90,6 +90,7 @@ require_once  'C:\wamp64\www\lm\class\Category.php';
             <td>additional_information</td>
             <td><textarea width="162px" height="200px" name="additional_info" placeholder=""></textarea></td>
         </tr>
+        
         <tr>
             <td>shipping_returns policy of a product</td>
             <td>

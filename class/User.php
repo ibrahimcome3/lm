@@ -1,12 +1,23 @@
 <?php 
-   class User extends Conn
+   class User extends Connn
 {
    public $user_id;
+   public $user_email;
+   public $user_address;
+   
    
    function  __construct(){
       parent::__construct();
       $this->user_id =  $_SESSION['uid'];
+      $pdo = $this->dbc;
+      $sql = "SELECT * FROM `customer` WHERE `customer_id` =  ".$this->user_id;
+      $stmt = $pdo->query($sql);
+      $row = $stmt->fetch();
+      $this->user_email =  $row['customer_email'];
+      $this->user_address = $row['customer_address1']." ". $row['customer_address2'];
+      
    }   
+   
 
     function get_user_records(){
       $pdo = $this->dbc;
@@ -15,10 +26,18 @@
       $row = $stmt->fetch();
       return $row;
    }
+   
+   
+    function get_address(){
+        return $this->user_address;
+        
+    }
+   function get_email(){
+       return $this->user_email;
+   }
 
    function update_user_credentials($fname, $lname, $display_name, $email_address){
    $sql = "UPDATE `customer` SET `customer_fname`='$fname',`customer_lname`='$lname',`customer_email`='$email_address', `customer_display_name`='$display_name'  WHERE `customer_id` = ".$this->user_id;       
-   echo $sql;
    $pdo = $this->dbc;
    $stmt = $pdo->query($sql);
    if($stmt){
@@ -29,7 +48,7 @@
    }
    
    function update_user_credentials_password($fname, $lname, $display_name, $email_address, $password_){
-   $sql = "UPDATE `customer` SET `customer_fname`='$fname',`customer_lname`='$lname',`customer_email`='$email_address', `customer_display_name`='$display_name' password = '$password_' WHERE `customer_id` = ".$this->user_id;       
+   $sql = "UPDATE `customer` SET `customer_fname`='$fname',`customer_lname`='$lname',`customer_email`='$email_address', `customer_display_name`='$display_name' , password = '$password_' WHERE `customer_id` = ".$this->user_id;       
    $pdo = $this->dbc;
    $stmt = $pdo->query($sql);
    if($stmt){
@@ -104,6 +123,13 @@
          
    }
    
+      function get_all_phone_number($id)
+   {
+      $pdo = $this->dbc;
+      $sql = "select * from phonenumber where CustomerID =  " . $id;
+      $stmt = $pdo->query($sql);
+      return $stmt;
+   }
    function delete_phone_number($id){
        
    $pdo = $this->dbc;
@@ -129,5 +155,5 @@
       return true;
    }
 }
-?>
+
    

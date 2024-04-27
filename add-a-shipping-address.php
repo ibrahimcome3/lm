@@ -1,8 +1,5 @@
 <?php
-session_start();
-include 'breadcrumps.php';
-//var_dump($_SESSION['cart']);
-include "conn.php";
+include "includes.php";
 
 if(!empty($_POST)){
     $customer_id = $_SESSION['uid'];
@@ -12,6 +9,7 @@ if(!empty($_POST)){
     $state=$_POST['state'];
     $city=$_POST['city'];
     $zip=$_POST['zip'];
+    $shipment = $_POST['shipment'];
 
     if(empty($city)){
     $error =   "City field is empty";
@@ -31,11 +29,14 @@ if(!empty($_POST)){
 
     }else if(empty($streetaddress2)){
     $error =   "Address line toe is empty";
-
+    
+    }else if(empty($shipment)){
+    $error = "Select shipment area for shipping cost";
+    
 
     }else{
     try{
-      $sql = "INSERT INTO `shipping_address` (`shipping_address_no`, `customer_id`, `address1`, `address2`, `state`, city,  `zip`) VALUES (NULL, '$customer_id', '$streetaddress1', '$streetaddress2', '$state', '$city', '$zip');";
+      $sql = "INSERT INTO `shipping_address` (`shipping_address_no`, `customer_id`, `address1`, `address2`, `state`, city,  `zip` , ship_cost) VALUES (NULL, '$customer_id', '$streetaddress1', '$streetaddress2', '$state', '$city', '$zip', '$shipment');";
        $res = $mysqli->query($sql);
 
     if($res){
@@ -53,7 +54,7 @@ if(!empty($_POST)){
 
 
 
-    var_dump($_POST);
+  
     /*
     else{
     $sql = "UPDATE `customer` SET `customer_fname`='$fname',`customer_lname`='$lname', `customer_city`= '$city',`customer_email`= '$email',`customer_address1`='$streetaddress1',`customer_address2`='$streetaddress2',`customer_country`='$country',`customer_state`='$state',`customer_phone`= '$phone_number',`customer_zip`='$zip',`customer_status`='MEMBER',`password`='$password',`profile_image`='anonymous.jpg' WHERE customer_id = $customer_id ";
@@ -77,28 +78,8 @@ if(!empty($_POST)){
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Customer Shippinh address registration page</title>
-    <meta name="keywords" content="HTML5 Template">
-    <meta name="description" content="Molla - Bootstrap eCommerce Template">
-    <meta name="author" content="p-themes">
-    <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/icons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/icons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/icons/favicon-16x16.png">
-    <link rel="manifest" href="assets/images/icons/site.html">
-    <link rel="mask-icon" href="assets/images/icons/safari-pinned-tab.svg" color="#666666">
-    <link rel="shortcut icon" href="assets/images/icons/favicon.ico">
-    <meta name="apple-mobile-web-app-title" content="Molla">
-    <meta name="application-name" content="Molla">
-    <meta name="msapplication-TileColor" content="#cc9966">
-    <meta name="msapplication-config" content="assets/images/icons/browserconfig.xml">
-    <meta name="theme-color" content="#ffffff">
-    <!-- Plugins CSS File -->
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <!-- Main CSS File -->
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/skins/skin-demo-13.css">
-    <link rel="stylesheet" href="assets/css/demos/demo-13.css">
+    <title>Customer Shipping address registration page</title>
+    <?php include "htlm-includes.php/metadata.php"; ?>
 
     <style>
     .product-label-.label-top- {
@@ -140,10 +121,11 @@ if(!empty($_POST)){
             	    <?php if(isset($error)){ ?>
                      <div class="row error"><?= $error; ?></div>
                     <?php } ?>
+                 <div><p>Shipping Cost: N3000 </p><p>Total Cost: 63000</p></div>    
                  <div class="row">
                         		<div class="col-lg-9">
                         		    <form action="" method="post">
-                        			<h2 class="checkout-title product-label- label-top- ">Customer Address form</h2><!-- End .checkout-title -->
+                        			<h4>Customer Address form</h4>
                 						<label>Street address *</label>
                 						<input type="text" class="form-control" name="streetaddress1" placeholder="House number and Street name" required>
                 						<input type="text" class="form-control" name="streetaddress2" placeholder="Appartments, suite, unit etc ..." required>
@@ -165,8 +147,36 @@ if(!empty($_POST)){
                         						<label>Postcode / ZIP *</label>
                         						<input type="text" name="zip" class="form-control">
                         					</div><!-- End .col-sm-6 -->
+                        					
+                        				<div class=" col-sm-6">
+                                       
+
+                                          
+                                           
+                                                    <label for="sortby" style="color: blue;">Select shipping area *</label>
+                                                   
+                                                        <select name="shipment" id="shipment" class="form-control">
+                                                            <option shipment-price="0.00" value="-1">select shipping
+                                                                cost</option>
+                                                            <?php
+                                                            $ship = new Shipment();
+                                                            $s = $ship->get_shipment_area();
+                                                            while ($row = mysqli_fetch_array($s)) {
+                                                                ?>
+
+                                                                <option shipment-price="<?= $row['area_cost'] ?>"
+                                                                    value="<?= $row['area_id'] ?>">
+                                                                    <?= $row['area_name'] ?>
+                                                                    <?= "(N" . $row['area_cost'] . ")" ?>
+                                                                </option>
+                                                            <?php } ?>
+                                                        </select>
+
+                                         </div>
+
 
                         				</div><!-- End .row -->
+                        				
                                         <button type="submit" class="btn btn-primary btn-round">
                                                 					<span>Submit</span><i class="icon-long-arrow-right"></i>
                                                 			 </button>

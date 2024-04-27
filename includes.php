@@ -1,15 +1,18 @@
 <?php
 session_start();
-include "conn.php";
-require_once  'C:\wamp64\www\lm\class\Conn.php';
-    require_once  'C:\wamp64\www\lm\class\InventoryItem.php';
-    require_once  'C:\wamp64\www\lm\class\Category.php';
-    require_once  'C:\wamp64\www\lm\class\Review.php';
-    require_once  'C:\wamp64\www\lm\class\ProductItem.php';
-    require_once  'C:\wamp64\www\lm\class\Variation.php';
-    require_once  "C:\wamp64\www\lm\class\Promotion.php";
-    require_once  "C:\wamp64\www\lm\class\WishList.php";
+ 
+    include  'class/Conn.php';
+    include  'class/InventoryItem.php';
+    include  'class/Category.php';
+    include  'class/Review.php';
+    include  'class/ProductItem.php';
+    include  'class/Variation.php';
+    include  "class/Promotion.php";
+    include  "class/WishList.php";
+    include  "class/Cart.php";
+    include  "class/Shipment.php";
     
+       include "conn.php";
     include 'breadcrumps.php';
     $product_obj = new ProductItem();
     $promotion = new Promotion();
@@ -18,8 +21,8 @@ require_once  'C:\wamp64\www\lm\class\Conn.php';
     $invt = new InventoryItem();
     if(isset($_SESSION['uid'])){
     $wishlist = new WishList($_SESSION['uid']);
-    require_once  "C:\wamp64\www\lm\class\User.php";
-    require_once  "C:\wamp64\www\lm\class\Order.php";
+    include  "class/User.php";
+    include  "class/Order.php";
     $user_ = new User();
     $orders = new Order();
     }
@@ -33,6 +36,7 @@ require_once  'C:\wamp64\www\lm\class\Conn.php';
   return $row['image_path'];
   else return "e.jpg";
   }
+  
     $var= array();
     $var1= array();
     $options = [
@@ -40,10 +44,14 @@ require_once  'C:\wamp64\www\lm\class\Conn.php';
     \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
     \PDO::ATTR_EMULATE_PREPARES   => false,
     ];
+
+$username="u633821528_goodguyng";
+$password="PPassword12@"; // Mysql password
+$db_name="u633821528_goodguyng"; // Database name
       $host = 'localhost';
-      $db   = 'lm';
-      $user = 'root';
-      $pass = '';
+      $db   = 'u633821528_goodguyng';
+      $user = 'u633821528_goodguyng';
+      $pass = 'PPassword12@';
       $port = "3306";
       $charset = 'utf8mb4';
       $dsn = "mysql:host=$host;dbname=$db;charset=$charset;port=$port";

@@ -9,27 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>About Us</title>
-    <meta name="keywords" content="HTML5 Template">
-    <meta name="description" content="Molla - Bootstrap eCommerce Template">
-    <meta name="author" content="p-themes">
-    <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/icons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/icons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/icons/favicon-16x16.png">
-    <link rel="manifest" href="assets/images/icons/site.html">
-    <link rel="mask-icon" href="assets/images/icons/safari-pinned-tab.svg" color="#666666">
-    <link rel="shortcut icon" href="assets/images/icons/favicon.ico">
-    <meta name="apple-mobile-web-app-title" content="Molla">
-    <meta name="application-name" content="Molla">
-    <meta name="msapplication-TileColor" content="#cc9966">
-    <meta name="msapplication-config" content="assets/images/icons/browserconfig.xml">
-    <meta name="theme-color" content="#ffffff">
-    <!-- Plugins CSS File -->
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <!-- Main CSS File -->
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/skins/skin-demo-13.css">
-    <link rel="stylesheet" href="assets/css/demos/demo-13.css">
+    <?php include "htlm-includes.php/metadata.php"; ?>
 </head>
 
 <body>
@@ -41,7 +21,7 @@
         <main class="main">
         	<div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
         		<div class="container">
-        			<h1 class="page-title">Welcome to Lagos Market</h1>
+        			<h1 class="page-title">Welcome to GoodGuyng.com</h1>
         		</div><!-- End .container -->
         	</div><!-- End .page-header -->
             <nav aria-label="breadcrumb" class="breadcrumb-nav">
@@ -58,8 +38,8 @@
                         <div class="col-lg-10 offset-lg-1">
                             <div class="about-text text-center mt-3">
                                 <h2 class="title text-center mb-2">Who We Are</h2><!-- End .title text-center mb-2 -->
-                                <p><span id="W_Name2">lagos Market</span> is a Professional <span id="W_Type1">e-commerce</span>
-     platform. Lagos Market mission is to be the best online shopping platform with the lowest price. Here we will provide you only interesting content, which you will like very much. We're dedicated to providing you the best of <span id="W_Type2">e-commerce</span>, with a focus on dependability and <span id="W_Spec">Selling Items such as electronics, office stationary, food items among others</span>. We're working to turn our passion for online website. We hope you enjoy our <span id="W_Type4">online vertual shop</span> as much as we enjoy offering them to you.</p>
+                                <p><span id="W_Name2">GoodGuyng</span> is a Professional <span id="W_Type1">e-commerce</span>
+     platform. GoodGuyng mission is to be the best online shopping platform with the lowest price. Here we will provide you only interesting content, which you will like very much. We're dedicated to providing you the best of <span id="W_Type2">e-commerce</span>, with a focus on dependability and <span id="W_Spec">Selling Items such as electronics, office stationary, food items among others</span>. We're working to turn our passion for online website. We hope you enjoy our <span id="W_Type4">online vertual shop</span> as much as we enjoy offering them to you.</p>
 
 
                                 <img src="assets/images/about/about-2/signature.png" alt="signature" class="mx-auto mb-5">

@@ -1,5 +1,5 @@
 <?php
-class Review  extends Conn   {
+class Review  extends Connn   {
 
        function __construct(){
        parent::__construct();

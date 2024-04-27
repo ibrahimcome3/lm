@@ -135,6 +135,11 @@ while ($row = mysqli_fetch_assoc($result)) {
                  <a href="new-category.php" title="new-brand-creation">create new category</a>
             </td>
         </tr>
+        
+          <tr>
+            <td>Barcode Number </td>
+            <td><input type="text"  name="barcode" placeholder="bar code number"/></td>
+        </tr>
         <tr>
             <td>Select a picture for this product (*jpg,png only)</td>
             <td>

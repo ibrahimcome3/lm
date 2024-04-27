@@ -78,25 +78,7 @@ $lastpage = ceil($total_pages/$limit);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Category</title>
-    <meta name="keywords" content="HTML5 Template">
-    <meta name="description" content="Molla - Bootstrap eCommerce Template">
-    <meta name="author" content="p-themes">
-    <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/icons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/icons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/icons/favicon-16x16.png">
-    <link rel="manifest" href="assets/images/icons/site.html">
-    <link rel="mask-icon" href="assets/images/icons/safari-pinned-tab.svg" color="#666666">
-    <meta name="msapplication-config" content="assets/images/icons/browserconfig.xml">
-    <meta name="theme-color" content="#ffffff">
-    <!-- Plugins CSS File -->
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <!-- Main CSS File -->
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/plugins/owl-carousel/owl.carousel.css">
-    <link rel="stylesheet" href="assets/css/plugins/magnific-popup/magnific-popup.css">
-    <link rel="stylesheet" href="assets/css/plugins/nouislider/nouislider.css">
-    <link rel="stylesheet" href="assets/css/skins/skin-demo-13.css">
+   <?php include "htlm-includes.php/metadata.php"; ?>
 </head>
 
 <body>
@@ -160,6 +142,7 @@ $lastpage = ceil($total_pages/$limit);
                                 <div class="row justify-content-center">
                                        <?php
                                        while ($row = $stmt->fetch()) {
+                                             $i = $row['InventoryItemID'];
 
                                        ?>
                                     <div class="col-6 col-md-4 col-lg-4 col-xl-3">
@@ -173,7 +156,17 @@ $lastpage = ceil($total_pages/$limit);
                                                   <span class="product-label label-top">NEW</span>
                                                   <?php } ?>
                                                 <a href="product-detail.php?itemid=<?=$row['InventoryItemID']?>">
-                                                    <img src="<?= $p->get_image($row['InventoryItemID']); ?>" alt="Product image" class="product-image">
+                                                     <?php 
+                                                            $pid = $product_obj->get_product_id($row['InventoryItemID']);
+                                                            if($product_obj->check_dirtory_resized_600($pid,$row['InventoryItemID'])){
+                                                                            $i = $row['InventoryItemID'];
+                                                                            $pi = glob("products/product-$pid/product-$pid-image/inventory-$pid-$i/resized_600/".'*.{jpg,gif}', GLOB_BRACE);
+                                                                            $img = $pi[0];
+                                                                         }else{
+                                                                            $img = $p->get_image($row['InventoryItemID']);
+                                                                        }
+                                                  ?>
+                                                    <img src="<?= $img ?>" alt="product image for product <?= $i ?>" class="product-image">
                                                 </a>
 
                                                 <div class="product-action-vertical">
@@ -190,7 +183,7 @@ $lastpage = ceil($total_pages/$limit);
                                                 <div class="product-cat">
                                                     <a href="#"><?= $category->get_categorie_name($row['category']); ?></a>
                                                 </div><!-- End .product-cat -->
-                                                <h3 class="product-title"><a href="product.html"><?= $row['description']?></a></h3><!-- End .product-title -->
+                                                <h3 class="product-title"><a href="product-detail.php?itemid=<?=$row['InventoryItemID']?>"><?= $row['small_description']?></a></h3><!-- End .product-title -->
                                                 <div class="product-price">
                                                     <?= "Naira ". $row['cost']?>
                                                 </div><!-- End .product-price -->
@@ -372,47 +365,9 @@ $lastpage = ceil($total_pages/$limit);
     <!-- Main JS File -->
 
     <!-- Plugins JS File -->
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/jquery.hoverIntent.min.js"></script>
-    <script src="assets/js/jquery.waypoints.min.js"></script>
-    <script src="assets/js/superfish.min.js"></script>
-    <script src="assets/js/owl.carousel.min.js"></script>
-    <script src="assets/js/wNumb.js"></script>
-    <script src="assets/js/bootstrap-input-spinner.js"></script>
-    <script src="assets/js/jquery.magnific-popup.min.js"></script>
-    <script src="assets/js/nouislider.min.js"></script>
-    <script src="assets/js/jquery.plugin.min.js"></script>
-    <script src="assets/js/jquery.countdown.min.js"></script>
-    <script src="assets/js/main.js"></script>
-    <script src="assets/js/demos/demo-13.js"></script>
-    <script src="login.js"></script>
+    <?php include "jsfile.php"; ?>
  
     <!-- Main JS File -->
-
-
-     <script>
-        $(document).ready(function(){
-            //$(".pagination span").css('margin-right', '10px');
-        $("a.submit-cart").click(function(e){
-        var product_id = $(this).attr( "product-info" );
-         alert("adding: "+product_id );
-                 //inventory_product_id
-                //inventory_product_id
-        $.ajax({
-            method: "POST",
-            url: "test3.php",
-            data: { inventory_product_id: product_id, qty: 1 }
-                })
-                    .done(function( msg ) {
-                        $(".cart-count").text(msg);
-                        console.log( "Data Saved: " + msg );
-                    });
-                e.preventDefault();
-            });
-        });
-    </script>
-
 </body>
 
 

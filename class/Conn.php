@@ -1,11 +1,13 @@
 <?php
-class Conn
+class Connn
 {
     protected  $dbc;
     private $host="localhost"; // Host name
-    private $username="root";
-    private $password=""; // Mysql password
-    private $db_name="lm"; // Database name
+    private $username="u633821528_goodguyng";
+    private $password="PPassword12@"; // Mysql password
+    private $db_name="u633821528_goodguyng"; // Database name
+    
+
 
     function __construct(){
        $options = [
@@ -14,12 +16,11 @@ class Conn
     \PDO::ATTR_EMULATE_PREPARES   => false,
     ];
       $host = 'localhost';
-      $db   = 'lm';
-      $user = 'root';
-      $pass = '';
-      $port = "3306";
+      $db   = 'u633821528_goodguyng';
+      $user = 'u633821528_goodguyng';
+      $pass = 'PPassword12@';
       $charset = 'utf8mb4';
-      $dsn = "mysql:host=$host;dbname=$db;charset=$charset;port=$port";
+      $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
     try {
          $pdo = new \PDO($dsn, $user, $pass, $options);
          $this->dbc = $pdo;

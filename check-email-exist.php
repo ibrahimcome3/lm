@@ -1,6 +1,8 @@
 <?php
 //check-email-exist
+
 include "conn.php";
+session_start();
 $er = Array();
         $sql = "SELECT * FROM customer WHERE customer_email = '" . $_POST['register_email'] ."'";
         $result = $mysqli->query($sql);
@@ -15,6 +17,7 @@ $er = Array();
             exit();
         }elseif($check2 == 0){
             $_SESSION["r_email"] = $_POST['register_email'];
+            $_SESSION['registration']['email'] = $_POST['register_email'];
             header("Location: registration-second.php");
         }
 

@@ -1,5 +1,5 @@
 <?php
-   class WishList extends Conn
+   class WishList extends Connn
    {
       private $user_id;
       public  $no_of_wish_list_item;
@@ -39,12 +39,11 @@
     \PDO::ATTR_EMULATE_PREPARES   => false,
     ];
       $host = 'localhost';
-      $db   = 'lm';
-      $user = 'root';
-      $pass = '';
-      $port = "3306";
+      $db   = 'u633821528_goodguyng';
+      $user = 'u633821528_goodguyng';
+      $pass = 'PPassword12@';
       $charset = 'utf8mb4';
-      $dsn = "mysql:host=$host;dbname=$db;charset=$charset;port=$port";
+      $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
     try {
          $pdo = new \PDO($dsn, $user, $pass, $options);
          $db = $pdo;

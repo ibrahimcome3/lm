@@ -16,7 +16,6 @@ require_once "includes.php";
 <html lang="en">
 
 
-<!-- molla/login.html  22 Nov 2019 10:04:03 GMT -->
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">

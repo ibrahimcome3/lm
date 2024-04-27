@@ -50,7 +50,7 @@ $wished_list_count = 0;
                         </button>
 
                         <a href="index.php" class="logo">
-                            <img src="assets/logo/lagosmarketngcom-logos_black2.png" alt="Lagos Market" width="205" >
+                            <img src="assets/logo/logo.png" alt="goodguyng.com" width="205" >
                         </a>
 
                         <nav class="main-nav">

@@ -2,7 +2,7 @@
 include "includes.php";
 //var_dump($_SESSION);
 
-require_once  'C:\wamp64\www\lm\conn.php';
+include  'conn.php';
 if(isset($_SESSION['uid'])){
 $uid = $_SESSION['uid'];
 if(isset($_GET['oid']) and isset($_GET['oitem'])){

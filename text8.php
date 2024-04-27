@@ -1,12 +1,13 @@
  <?php
- include "conn.php";
-require_once  'C:\wamp64\www\lm\class\Conn.php';
-    require_once  'C:\wamp64\www\lm\class\InventoryItem.php';
-    require_once  'C:\wamp64\www\lm\class\Category.php';
-    require_once  'C:\wamp64\www\lm\class\Review.php';
-    require_once  'C:\wamp64\www\lm\class\ProductItem.php';
-    require_once  'C:\wamp64\www\lm\class\Variation.php';
-    require_once  "C:\wamp64\www\lm\class\Promotion.php";
+ 
+    include "conn.php";
+    include  'class/Conn.php';
+    include  'class/InventoryItem.php';
+    include  'class/Category.php';
+    include  'class/Review.php';
+    include  'class/ProductItem.php';
+    include  'class/Variation.php';
+    include  "class/Promotion.php";
     include 'breadcrumps.php';
     $product_obj = new ProductItem();
     $promotion = new Promotion();
@@ -26,6 +27,8 @@ require_once  'C:\wamp64\www\lm\class\Conn.php';
 
     $category9 = $_POST['cat'];
     $_id_of_what_get_image = $_POST['pid'];
+    
+
 
     $sql = "SELECT count(*)  as counts FROM `inventoryitem` WHERE `category` = ".$category9. " and InventoryItemID != ". $_id_of_what_get_image;
     $rows = mysqli_fetch_array($mysqli->query($sql));
@@ -42,7 +45,7 @@ require_once  'C:\wamp64\www\lm\class\Conn.php';
         $output .= '<div class="product product-sm">
                                <figure class="product-media">
                                   <a href="product-detail.php?itemid='. $row['InventoryItemID'].'">
-                               <img src="'.  getImage($row['InventoryItemID']).'" alt="Product image" class="product-image">
+                               <img src="'.      $product_obj->get_image_600_199($row['InventoryItemID'],$_id_of_what_get_image).'" alt="Product image" class="product-image">
                         </a>
                  </figure>';
 

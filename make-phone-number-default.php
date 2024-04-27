@@ -1,6 +1,6 @@
 <?php  
 
-require_once "includes.php"; 
+include "includes.php"; 
        if(!isset($_SESSION['uid'])){
 			header("Location: login-page.php");
 			exit();

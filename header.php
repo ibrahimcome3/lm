@@ -1,6 +1,5 @@
   <?php
-  require_once  'C:\wamp64\www\lm\class\Conn.php';
-  require_once  'C:\wamp64\www\lm\class\Category.php';
+
   ?>
  <header class="header header-10 header-intro-clearance">
             <div class="header-top" >
@@ -17,7 +16,7 @@
                                 <ul>
                                     <li class=""><a href="about.php">About us</a></li>
                                     <?php if(!isset($_SESSION["uid"])){ ?>
-                                    <li class="login"><a href="#signin-modal" data-toggle="modal">Sign in / Sign up</a></li>
+                                    <li class="login"><a href="login.php">Sign in / Sign up</a></li>
                                     <?php }else{ ?>
                                     <li class="login"><a href="logout.php">log out</a></li>
                                     <li class="login"><a href="dashboard.php"><i class="icon-user"></i>Dashboard</a></li>
@@ -40,7 +39,7 @@
 
                         <a href="index.php" class="logo" >
                             <div class="">
-                            <div><img src="assets/logo/lagosmarketngcom-logos_transparent.png" style="width: 275px;" alt="LagosMarket logo"></div>
+                            <div><img src="assets/logo/logo.png" style="width: 275px;" alt="goodguyng.com logo"></div>
                             </div>
                         </a>
                     </div><!-- End .header-left -->

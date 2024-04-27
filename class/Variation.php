@@ -1,5 +1,5 @@
 <?php
-class Variation  extends Conn
+class Variation  extends Connn
 {
     private   $timestamp;
     private   $parentIDS;
@@ -23,10 +23,62 @@ class Variation  extends Conn
 
     function get_color_variation($item_id){
           $pdo = $this->dbc;
-          $stmt = $pdo->query("SELECT * FROM lm.inventoryitem WHERE `productItemID` = {$item_id} AND JSON_EXTRACT(`sku` , '$.color')");
-          //$stmt = $pdo->query("SELECT * FROM `product_configuration`, variation_option left join variation on variation_option.variation_id = variation.vid WHERE product_configuration.`variation_option_id` = variation_option.vopid AND product_configuration.inventory_item_id = {$item_id} and lower(variation.name) like 'color%'");
+          $stmt = $pdo->query("SELECT JSON_VALUE(`sku` , '$.color') as color, InventoryItemID FROM inventoryitem WHERE `productItemID` = $item_id;");
           return $stmt;
     }
+    
+    function check_for_size_variation($id){
+         $pdo = $this->dbc;
+         $stmt = $pdo->query("SELECT JSON_CONTAINS_PATH(sku, 'one', '$.size') as path from inventoryitem where InventoryItemID = $id;");
+         $row = $stmt->fetch();
+         if($row['path'] == '1'){
+             return true;
+         }else
+            return false;
+        
+    }
+    
+    function get_all_properties($id){
+         $str = "";
+         $pdo = $this->dbc;
+         $stmt = $pdo->query("SELECT sku from inventoryitem where InventoryItemID = $id;");
+         $row = $stmt->fetch();
+         $sku = json_decode($row['sku'], true);
+         $c = 0;
+         foreach($sku as $key => $val) 
+            {  
+               if($key === 'color') 
+               $str .= "<span style='margin-left: 8px;'>" .$key. " : "."<span style='background-color: $val; font-size: 10px; color: $val; border-radius: 25px; width: 15px; height: 5px;'>color</span>";   
+               else
+               $str .= "<span style='margin-left: 8px;'>" .$key. " : ".$val;   
+               if( $c != count( $sku ) - 1) {
+                    $str .=",";      
+              }
+            
+              $str .= "</span>";
+              $c++;
+             
+            }
+            
+            
+         return $str;    
+    }
+    
+    
+     function get_color_variation_($item_id){
+          $pdo = $this->dbc;
+          $stmt = $pdo->query("SELECT JSON_VALUE(`sku` , '$.color') as color, InventoryItemID FROM inventoryitem WHERE `InventoryItemID` = $item_id;");
+          $number_of_rows = $stmt->rowCount();
+          if($number_of_rows > 0){
+          $row = $stmt->fetch();
+          return  $row['color'];
+          }else{
+          return "red";  
+          }
+          
+          
+    }
+   
 
     function get_variation_values($variation = "color" , $product = 32){
           $pdo = $this->dbc;
@@ -56,7 +108,7 @@ class Variation  extends Conn
            //array_push($a, $row['name']);
            $i=0;
            $b = array();
-           //select * from inventoryitem left join productitem on inventoryitem.productItemID = productitem.productID left join variation on productitem.productID = variation.product_id where variation.name like '%".$row['name']."%'" and productitem.productID = $p_id
+        
            $s =  $pdo->query("select * from product_configuration left join variation_option on variation_option.vopid = product_configuration.variation_option_id left join variation on variation.vid = variation_option.variation_id WHERE product_id = $p_id and name like '%".$row['name']."%'"."group by value");
            while($r = $s->fetch()){
 
@@ -70,25 +122,24 @@ class Variation  extends Conn
                return $a;
     }
 
-    function get_size_variation($pid, $color){
-          $color = strtolower($color);
+    function get_size_variation($pid, $color=null){
           $pdo = $this->dbc;
-          $stmt = $pdo->query("SELECT if(JSON_EXTRACT(`sku` , '$.color') IS null, 'no', 'yes') as color_search from inventoryitem where  `productItemID` = $pid group by JSON_EXTRACT(`sku` , '$.color')");
+          //echo func_num_args();
+          if(isset($color)){
+          $color = strtolower($color);
+          $sql = "SELECT JSON_UNQUOTE(JSON_EXTRACT(sku, '$.size')) as size, InventoryItemID FROM `inventoryitem` WHERE productItemID = $pid and JSON_CONTAINS_PATH( sku, 'one', '$.color') = 1 and JSON_UNQUOTE(JSON_EXTRACT(sku, '$.color')) = '$color'";
+          }else{
+           $sql = "SELECT JSON_UNQUOTE(JSON_EXTRACT(sku, '$.size')) as size, InventoryItemID FROM `inventoryitem` WHERE productItemID = $pid";    
+          }
+          
+          $stmt = $pdo->query($sql);
           $number_of_rows = $stmt->rowCount();
           if($number_of_rows == 1){
-             $row = $stmt->fetch();
-             if($row['color_search'] == 'no'){
-                 $stmt = $pdo->query("SELECT productItemID, InventoryItemID, JSON_EXTRACT(`sku` , '$.size') as size FROM lm.inventoryitem WHERE `productItemID` = $pid and JSON_EXTRACT(`sku` , '$.size') IS NOT NULL;");
-                 return $stmt;
-             }
-          }else{
-              $stmt = $pdo->query("SELECT productItemID, InventoryItemID, JSON_EXTRACT(`sku` , '$.size') as size FROM lm.inventoryitem WHERE `productItemID` = $pid AND JSON_EXTRACT(`sku` , '$.color') = '$color';");
-                 return $stmt;
+            return $stmt;
           }
 
 
-          //$stmt = $pdo->query("SELECT * FROM `product_configuration`, variation_option left join variation on variation_option.variation_id = variation.vid WHERE product_configuration.`variation_option_id` = variation_option.vopid AND product_configuration.inventory_item_id = {$item_id} and lower(variation.name) like 'color%'");
-
+         
     }
     function check_for_item_unveriation_availability($variation_id){
          //echo $variation_id;

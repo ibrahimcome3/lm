@@ -1,5 +1,5 @@
 <?php
-class InventoryItem  extends Conn
+class InventoryItem  extends Connn
 {
     private  $timestamp;
 
@@ -130,7 +130,24 @@ class InventoryItem  extends Conn
             return false;
         }
     }
-
+   
+   function get_color($c){
+       $sql = "select JSON_VALUE(sku, '$.color') as color from inventoryitem where `InventoryItemID` = $c";
+       $pdo = $this->dbc;
+       $stmt = $pdo->query($sql);
+       $row = $stmt->fetch();
+       $row_count = $stmt->rowCount();
+       echo $row['color'];
+       if(strlen($row['color']) > 0){
+          return strtoupper($row['color']); 
+       }else{
+         return null;  
+       }
+       //return strtoupper($row['color']);
+    
+       
+       
+   }
 
 }
 

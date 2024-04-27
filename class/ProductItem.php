@@ -1,5 +1,5 @@
 <?php
-class ProductItem  extends Conn
+class ProductItem  extends Connn
 {
     private  $timestamp;
 
@@ -10,6 +10,18 @@ class ProductItem  extends Conn
        $defaultTimeZone='UTC';
        date_default_timezone_set($defaultTimeZone);
 	   $this->timestamp = date('Y-m-d');
+    }
+    
+    function get_image_600_199($ivid){
+                          $pid = $this->get_product_id($ivid);
+                                                             if($this->check_dirtory_resized_600($pid,$ivid)){
+                                                                $i = $ivid;
+                                                                $pi = glob("products/product-$pid/product-$pid-image/inventory-$pid-$i/resized_600/".'*.{jpg,gif}', GLOB_BRACE);
+                                                                $img = $pi[0];
+                                                             }else{
+                                                                $img = $this->get_image($row['InventoryItemID']);
+                                                            }
+                                        return $img;
     }
 
     function add_product(){
@@ -108,6 +120,29 @@ class ProductItem  extends Conn
 
 
 
+    }
+    
+    function check_dirctory_resized($product_item, $last_id){
+        $dir = "products/product-".$product_item."/"."product-".$product_item."-image/"."inventory-".$product_item."-".$last_id."/resized/";
+        // $dir; echo "<br/>";
+        if ( !is_dir( $dir ) ) {
+            return false;      
+        }else{
+            return true;
+        }
+        
+        
+    }
+    
+    function check_dirtory_resized_600($product_item, $last_id){
+        $dir = "products/product-".$product_item."/"."product-".$product_item."-image/"."inventory-".$product_item."-".$last_id."/resized_600/";
+        //echo $dir; echo "<br/>";
+        if ( !is_dir( $dir ) ) {
+            return false;      
+        }else{
+            return true;
+        }
+       
     }
 
 }

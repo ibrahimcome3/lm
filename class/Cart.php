@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 class Cart extends Promotion   {
 
 
@@ -49,7 +49,31 @@ class Cart extends Promotion   {
         // return $stmt->fetch();
       }
 
-
+      function get_right_inventroy_item_neede($arryofproperties){
+          $pdo = $this->dbc;
+          $str = '';
+          $counter = 0;
+          foreach($arryofproperties as $key => $val){
+              $str .=  "JSON_EXTRACT(sku, '$.".$key."') =  '".$val."'";
+              if( $counter != count( $arryofproperties ) - 1) {
+                $str .= "  and  ";
+              }
+         
+                $counter = $counter + 1;
+              
+              
+          }
+          
+          $sql = "SELECT InventoryItemID, barcode, sku, JSON_CONTAINS_PATH(sku, 'all', '$.size', '$.color') as size_color from inventoryitem   WHERE  ";
+          $sql = $sql." ".$str;
+          $stmt = $pdo->query($sql);
+          $row = $stmt->fetch();
+          return $row['InventoryItemID'];
+          
+          
+      }
+          
+      
 
 
 

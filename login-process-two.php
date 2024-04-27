@@ -24,7 +24,7 @@ if (!empty($_POST))
 	    $previous_url = $_SERVER['HTTP_REFERER'];
         if ($check2 == 0)
         {
-            $er = "Incorrect email id";
+            $er = "Incorrect email or password";
              header("Location: login-page.php?er=".$er);
 			 exit();
 
@@ -37,8 +37,8 @@ if (!empty($_POST))
        
                 if (md5($_POST['singinpassword']) != $info['password'])
                 {
-                    $er = "Incorrect password";
-                    header("Location: login-page.php?er=".$er);
+                    $er = "Incorrect email or password";
+                    header("Location: login.php?er=".$er);
 			        exit();
                 } else
                 {
@@ -60,12 +60,11 @@ if (!empty($_POST))
 					   exit();
                     } else
                     {
-                       header("Location: login-page.php?er=".$er);
+                       header("Location: login.php?er=".$er);
 			           exit();
                         
                     }
 
-                 
                 }
             }
         }

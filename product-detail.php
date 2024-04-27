@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php
-require_once "includes.php";
+include "includes.php";
 $wished_list_count = 0;
 if(!$invt->check_item_in_existance($_GET['itemid'])) { echo "Item does not exist <a href='index.php'>click here to go home page</a>"; exit();}
 if(isset($_SESSION['uid']))
@@ -38,34 +38,8 @@ $num_items_in_cart = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Product Page</title>
-    <meta name="keywords" content="HTML5 Template">
-    <meta name="description" content="Molla - Bootstrap eCommerce Template">
-    <meta name="author" content="p-themes">
-    <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/icons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/icons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/icons/favicon-16x16.png">
-    <link rel="manifest" href="assets/images/icons/site.html">
-    <link rel="mask-icon" href="assets/images/icons/safari-pinned-tab.svg" color="#666666">
-    <link rel="shortcut icon" href="assets/images/icons/favicon.ico">
-    <meta name="apple-mobile-web-app-title" content="Molla">
-    <meta name="application-name" content="Molla">
-    <meta name="msapplication-TileColor" content="#cc9966">
-    <meta name="msapplication-config" content="assets/images/icons/browserconfig.xml">
-    <meta name="theme-color" content="#ffffff">
-    <!-- Plugins CSS File -->
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/plugins/owl-carousel/owl.carousel.css">
-    <link rel="stylesheet" href="assets/css/plugins/magnific-popup/magnific-popup.css">
-    <!-- Main CSS File -->
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/skins/skin-demo-13.css">
-
-    <link rel="stylesheet" href="assets/css/plugins/nouislider/nouislider.css">
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
-    <script src="rateit.js-master\rateit.js-master\scripts\jquery.rateit.js"></script>
-    <link href="//rawgit.com/gjunge/rateit.js/master/scripts/rateit.css" rel="stylesheet" type="text/css">
+    <?php include "htlm-includes.php/metadata.php"; ?> 
+    
 </head>
 
 <body>
@@ -88,7 +62,7 @@ $num_items_in_cart = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
                                                         <span>Prev</span>
                                                 </a>
 
-                                                <a class="product-pager-link product-pager-next" href="product-detail?itemid=<?php  +1?>" aria-label="Next" tabindex="-1">
+                                                <a class="product-pager-link product-pager-next" href="product-detail.php?itemid=<?php  +1?>" aria-label="Next" tabindex="-1">
                                                         <span>Next</span>
                                                         <i class="icon-angle-right"></i>
                                                 </a>
@@ -105,6 +79,7 @@ $num_items_in_cart = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
                                                                         <div class="col-md-6 main-product-cover" product-info=<?= $_GET['itemid'] ?> product-cat=<?= $row['category'] ?>>
                                                                                 <div class="product-gallery">
                                                                                         <figure class="product-main-image">
+                                                                                                 <?php $pid = $product_obj->get_product_id($_GET['itemid']); ?>
                                                                                                 <?php if($promotion->check_if_item_is_in_promotion($product_obj->get_product_id($_GET['itemid'])) != null){  ?>
                                                                                                 <span class="product-label label-sale">Sale</span>
                                                                                                 <?php } ?>
@@ -114,8 +89,18 @@ $num_items_in_cart = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
                                                                                                 if(in_array($_GET['itemid'], $product_obj->get_all_product_items_that_are_less_than_one_month())) { ?>
                                                                                                 <span class="product-label label-top">NEW</span>
                                                                                                 <?php } ?>
-
-                                                                                                <img id="product-zoom" src="<?= getImage($id_of_what_get_image); ?>" data-image="<?= getImage($id_of_what_get_image);?>" data-zoom-image="<?= getImage($id_of_what_get_image); ?>" alt="product image">
+                                                                                                    <?php 
+                                                                                                         if($product_obj->check_dirtory_resized_600($pid,$_GET['itemid'])){
+                                                                                                             $i = $_GET['itemid'];
+                                                                                                            
+                                                                                                           $pi = glob("products/product-$pid/product-$pid-image/inventory-$pid-$i/resized_600/".'*.{jpg,gif}', GLOB_BRACE);
+                                                                                                          
+                                                                                                           $p = $pi[0];
+                                                                                                        }else{
+                                                                                                            $p = getImage($id_of_what_get_image);
+                                                                                                        }
+                                                                                                    ?>
+                                                                                                <img id="product-zoom"  src="<?= $p; ?>" data-image="<?= $p ?>" data-zoom-image="<?= getImage($id_of_what_get_image); ?>" alt="product image">
 
                                                                                                 <a href="#" id="btn-product-gallery" class="btn-product-gallery">
                                                                                                         <i class="icon-arrows"></i>
@@ -129,7 +114,19 @@ $num_items_in_cart = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
                                                                                                 if($stmt != null){
                                                                                                 while($r = $stmt->fetch()) { ?>
                                                                                                 <a class="product-gallery-item" href="#" data-image="<?= $r['image_path'] ?>" data-zoom-image="<?= $r['image_path'] ?>">
-                                                                                                        <img src="<?= $r['image_path'] ?>" alt="product side">
+                                                                                                    <?php 
+                                                                                                    
+                                                                                                if($p_obj->check_dirctory_resized($pid,$_GET['itemid'])){
+                                                                                                     $explode = explode('/', $r['image_path']);
+                                                                                                     $exp = explode('/', $r['image_path'],-1);
+                                                                                                     $p = "products/".$exp[1]."/".$exp[2]."/".$exp[3]."/resized/".$explode[count($explode) - 1];
+                                                                                                }else{
+                                                                                                    $p = $r['image_path'];
+                                                                                                }
+                                                                                                    
+                                                                                                     
+                                                                                                    ?>
+                                                                                                        <img src="<?=$p?>" alt="product side">
                                                                                                 </a>
                                                                                                 <?php }
                                                                                                  }
@@ -162,55 +159,76 @@ $num_items_in_cart = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
                                                                                         <div class="product-content">
                                                                                                 <p><?= $row['small_description']?></p>
                                                                                         </div><!-- End .product-content -->
-
+                                                                                <form action="cart.php" method="post">
                                                                                         <div class="details-filter-row details-row-size">
-
-                                                                                                <label>Color:</label>
-
-                                                                                                <div class="product-nav product-nav-dots">
-                                                                                                        <?php
-
-                                                                                                            $arr_color = array();
-                                                                                                            $var_obj = new Variation();
+                                                                                            <?php 
+                                                                                            $invt_item = new InventoryItem();
+                                                                                            $color = $invt_item->get_color($_GET['itemid']);
+                                                                                             $arr_color = array();
+                                                                                            $var_obj = new Variation();
                                                                                                             $var_obj_size = new Variation();
                                                                                                             $product_obj = new ProductItem();
                                                                                                             $stmt = $var_obj->get_color_variation($product_obj->get_product_id($_GET['itemid']));
-                                                                                                            $stmt2 = $var_obj_size->get_size_variation($product_obj->get_product_id($_GET['itemid']), 'green');
-                                                                                                             while($row = $stmt->fetch()){
-                                                                                                             $data = json_decode($row['sku'], true);
-                                                                                                             array_push($arr_color, $data['color']);
-                                                                                                             $arr_color = array_unique($arr_color);
+                                                                                    
+                                                                                           
+                                                                                            if($color){  ?>
+                                                                                                <label>Color:</label>
+                                                                                                <input type="hidden" name="color" value="<?= $var_obj->get_color_variation_($_GET['itemid']) ?>"/>  
+                                                                                            <?php  } ?>
+                                                                                                <div class="product-nav product-nav-dots">
+                                                                                                        <?php
 
+                                                                                                           
+                                                                                                            
+                                                                                                            if(isset($color)){
+                                                                                                       
+                                                                                                            $stmt2 = $var_obj_size->get_size_variation($product_obj->get_product_id($_GET['itemid']), strtoupper($color));
+                                                                                                            }else{
+                                                                                                            
+                                                                                                              $stmt2 = $var_obj_size->get_size_variation($product_obj->get_product_id($_GET['itemid']));   
+                                                                                                            }
+                                                                                                            if(isset($color)){
+                                                                                                             while($row = $stmt->fetch()){
+                                                                                                             
+                                                                                                             $arr_color[$row['InventoryItemID']] = $row['color'];
+                                                                                                             //array_push($arr_color, $row['color']);
+                                                                                                             $arr_color = array_unique($arr_color);
+                                                                                        
                                                                                                         ?>
 
                                                                                                     <?php
                                                                                                        }
-                                                                                                       foreach($arr_color as $color){
+                                                                                                       foreach($arr_color as $key => $color){
 
                                                                                                     ?>
-                                                                                                     <a href="color-variation-finder.php?pid=<?=$product_obj->get_product_id($_GET['itemid'])?>&p_color=<?=$color ?>" style="background: <?= $color ?>"><span class="sr-only">Color name</span></a>
-                                                                                                    <?php } ?>
+                                                                                    
+                                                                                                     <a href="product-detail.php?itemid=<?=$key?>" style="background: <?= $color ?>"><span class="sr-only">Color name</span></a>
+                                                                                                    <?php } 
+                                                                                                            }
+                                                                                                    ?>
                                                                                                 </div><!-- End .product-nav -->
                                                                                         </div><!-- End .details-filter-row -->
-
+                                                                                    <?php if($var_obj_size->check_for_size_variation($_GET['itemid'])){ ?>                      
                                                                                     <div class="details-filter-row details-row-size">
                                                                                            <label for="size">Size:</label>
                                                                                                 <div class="select-custom">
-                                                                                                                   <select name="size" id="size" class="form-control">
+                                                                                                 
+                                                                                                   
+                                                                                                    
+                                                                                                                   <select name="size" id="size" class="size form-control">
                                                                                                                 <option value="#" selected="selected">Select a size</option>
                                                                                                                 <?php
                                                                                                                   while($row2 = $stmt2->fetch()){
                                                                                                                  ?>
-
-
-                                                                                                                    <option value="<?=$row2['InventoryItemID'] ?>"><?=$row2['size']?></option>
+                                                                                                                    <option value="<?=$row2['size'] ?>"><?=$row2['size']?></option>
                                                                                                                        <?php }  ?>
 
                                                                                                         </select>
                                                                                                 </div><!-- End .select-custom -->
 
                                                                                                 <a href="#" class="size-guide"><i class="icon-th-list"></i>size guide</a>
-                                                                                        </div><!-- End .details-filter-row -->
+                                                                                    </div><!-- End .details-filter-row -->
+                                                                                    <?php } ?>
 
 
 
@@ -218,22 +236,29 @@ $num_items_in_cart = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
                                                                                                 <div class="details-action-col">
                                                                                                         <label for="qty">Qty:</label>
                                                                                                         <div class="product-details-quantity">
-                                                                                                             <form action="cart.php" method="post">
+                                                                                                            
                                                                                                                      <input type="hidden" name="inventory_product_id" value="<?= $_GET['itemid'] ?>" />
                                                                                                                 <input type="number" name="qty" id="qty" class="form-control" value="1" min="1" max="20" step="1" data-decimals="0" required>
-                                                                                                             </form>
+                                                                                                           
+                                                                                                             
                                                                                                         </div><!-- End .product-details-quantity -->
 
-                                                                                                         <a href="#" product-info ="<?=$_GET['itemid']?>" class="submit-cart btn-product btn-cart submit-cart"><span>add to cart</span></a>
+                                                                                                        <input type="submit" class="submit ubmit-cart btn-product btn-cart submit-cart" value="add to cart" />
+                                                                                                       <!--  <a href="#" product-info="//$_GET['itemid']" class="submit-cart btn-product btn-cart submit-cart"><span>add to cart</span></a> -->
+                                                                                                         
+                                                                                  
                                                                                                 </div><!-- End .details-action-col -->
 
                                                                                                 <div class="details-action-wrapper">
                                                                                                         <a href="add-to-watch-list.php?itemid=<?= $_GET['itemid'] ?>" class="btn-product btn-wishlist" title="Wishlist"><span>Add to Wishlist</span></a>
-                                                                                                        <a href="#" class="btn-product btn-compare" title="Compare"><span>Add to Compare</span></a>
+                                                                                                      
 
                                                                                                 </div><!-- End .details-action-wrapper -->
                                                                                                    <!-- End .details-action-wrapper -->
                                                                                         </div><!-- End .product-details-action -->
+                                                                                        
+                                                                                         
+                                                                                        </form>
 
                                                                                         <div class="product-details-footer details-footer-col">
                                                                                                 <div class="product-cat">
@@ -259,13 +284,7 @@ $num_items_in_cart = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
 
                                                                                                         <a href="product-review.php?inventory-item=<?=$_GET['itemid']?>&product_id=<?=$icudrop?>" class="btn-product " title="Compare"><span>Add a Review</span></a>
 
-                                                                                                <div class="social-icons social-icons-sm">
-                                                                                                        <span class="social-label">Share:</span>
-                                                                                                        <a href="#" class="social-icon" title="Facebook" target="_blank"><i class="icon-facebook-f"></i></a>
-                                                                                                        <a href="#" class="social-icon" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>
-                                                                                                        <a href="#" class="social-icon" title="Instagram" target="_blank"><i class="icon-instagram"></i></a>
-                                                                                                        <a href="#" class="social-icon" title="Pinterest" target="_blank"><i class="icon-pinterest"></i></a>
-                                                                                                </div>
+                                                                                            
                                                                                         </div><!-- End .product-details-footer -->
                                                                                 </div><!-- End .product-details -->
                                                                         </div><!-- End .col-md-6 -->
@@ -381,6 +400,22 @@ $num_items_in_cart = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
  
 </body>
  <script src="assets/js/loadrelateditems.js"></script>
+ <script type="text/javascript">
+$(document).ready(function(){
+  $(".submit").click(function(){
+
+     if($('.size').length > 0){ 
+     var size = $('.size option:selected').val();
+     if(size == "" || size == "#") {
+        alert("Please select a a size");
+        return false;
+     }
+  } 
+  });
+});
+</script>
+ 
+
 
 <!-- molla/product-sidebar.html  22 Nov 2019 10:03:37 GMT -->
 </html>

@@ -20,26 +20,7 @@ $result = $mysqli->query($sql);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Wish list</title>
-    <meta name="keywords" content="HTML5 Template">
-    <meta name="description" content="Molla - Bootstrap eCommerce Template">
-    <meta name="author" content="p-themes">
-    <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/icons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/icons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/icons/favicon-16x16.png">
-    <link rel="manifest" href="assets/images/icons/site.html">
-    <link rel="mask-icon" href="assets/images/icons/safari-pinned-tab.svg" color="#666666">
-    <link rel="shortcut icon" href="assets/images/icons/favicon.ico">
-    <meta name="apple-mobile-web-app-title" content="Molla">
-    <meta name="application-name" content="Molla">
-    <meta name="msapplication-TileColor" content="#cc9966">
-    <meta name="msapplication-config" content="assets/images/icons/browserconfig.xml">
-    <meta name="theme-color" content="#ffffff">
-    <!-- Plugins CSS File -->
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <!-- Main CSS File -->
-   <link rel="stylesheet" href="assets/css/style.css">
-   <link rel="stylesheet" href="assets/css/skins/skin-demo-13.css">
+    <?php include "htlm-includes.php/metadata.php"; ?>
 </head>
 
 <body>
@@ -76,20 +57,20 @@ $result = $mysqli->query($sql);
                                     $old_cost = null;
                                if($promotion->check_if_item_is_in_inventory_promotion($row['InventoryItemID'])){
                                         $row['cost'] = $promotion->get_promoPrice_price($row['InventoryItemID']);
-                                        $old_cost =    $promotion->get_regular_price($row['InventoryItemID']);
+                                        $old_cost    = $promotion->get_regular_price($row['InventoryItemID']);
                                }
                              ?>
 							<tr>
 								<td class="product-col">
 									<div class="product">
 										<figure class="product-media">
-										    <a href="product-detail?itemid=<?=$row['InventoryItemID'] ?>">
+										    <a href="product-detail.php?itemid=<?=$row['InventoryItemID'] ?>">
 												<img src="<?php echo getImage($row['InventoryItemID']); ?>" alt="Product image">
 											</a>
 										</figure>
 
 										<h3 class="product-title">
-										    <a href="product-detail?itemid=<?=$row['InventoryItemID'] ?>"> <?=$row["small_description"] ?></a>
+										    <a href="product-detail.php?itemid=<?=$row['InventoryItemID'] ?>"> <?=$row["small_description"] ?></a>
 										</h3><!-- End .product-title -->
 									</div><!-- End .product -->
 								</td>
@@ -105,11 +86,18 @@ $result = $mysqli->query($sql);
                                 <td class="action-col">
 
                                    <form class="cart_form" action="cart.php" method="post">
-										<button class="submit-cart  btn btn-block btn-outline-primary-2"><i class="icon-cart-plus"></i>Add to Cart</button>
-                                     <input type="hidden" name="inventory_product_id" value="<?=$row['InventoryItemID']?>">
-                                    <div class="product-details-quantity">
+                                       <table>
+                                           <tr>
+                                               <td><input type="hidden" name="inventory_product_id" value="<?=$row['InventoryItemID']?>">
+                                              <div class="product-details-quantity">
                                                         <input name="qty" type="number" id="qty-<?=$row['InventoryItemID']?>" class="form-control" value="1" min="1" max="10" step="1" data-decimals="0" required>
                                                     </div>
+                                               <<button class="submit-cart  btn btn-block btn-outline-primary-2"><i class="icon-cart-plus"></i>Add to Cart</button></td>
+                                           </tr>
+                                       </table>
+									
+                                     
+                                   
                                     </form>
                                </td>
 								<td class="remove-col"><button class="btn-remove" cart-item-id=<?=$row['InventoryItemID']?> ><i class="icon-close"></i></button></td>
@@ -426,26 +414,25 @@ $result = $mysqli->query($sql);
     <script>
         $(document).ready(function(){
             $("button.submit-cart").click(function(){
-
                 $(".cart_form").submit(); // Submit the form
                 alert("Item added to cart");
             });
 
-                      $("button.btn-remove").click(function(event){
+                   $("button.btn-remove").click(function(event){
                    event.preventDefault();
                    var del_title =  $(this).attr('cart-item-id');
                    var item_to_removed = $(this).closest('tr');
-                   alert(del_title);
+                   console.log("About to delete itme : "+del_title);
                 $.ajax({
                     type: 'POST',
                     cache: false,
-                    url: 'remove_product_from_watch_list.php',
+                    url: 'https://goodguyng.com/wishlist.php/remove_product_from_watch_list.php',
                     dataType: "json",
                     data: {remove:del_title},
                     success: function(data) {
                         alert(data);
-                         item_to_removed.remove();
-                         location.reload(true);
+                        item_to_removed.remove();
+                        location.reload(true);
                     }
                 });
             });

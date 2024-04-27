@@ -1,5 +1,5 @@
 <?php
-class Promotion  extends Conn
+class Promotion  extends Connn
 {
     public $promotion_items = array();
 
